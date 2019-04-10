@@ -17,14 +17,12 @@ class RootPage extends StatefulWidget{
 enum AuthStatus{ NOT_DETERMINED, NOT_LOGGED_IN, LOGGED_IN }
 
 class _RootPageState extends State<RootPage>{
-  AuthStatus authStatus;
-  String _userId;
+  AuthStatus authStatus = AuthStatus.NOT_DETERMINED;
+  String _userId = "";
 
   @override
   void initState(){
     super.initState();
-    authStatus = AuthStatus.NOT_DETERMINED;
-    _userId = "";
     widget.auth.getCurrentUser().then((user){
       setState(() {
         if(user != null) _userId = user?.uid;
@@ -52,7 +50,7 @@ class _RootPageState extends State<RootPage>{
             auth: widget.auth,
             onSignedOut: _onSignedOut,
           );
-        }
+        } else return _buildWaitingScreen();
         break;
       default:
         return _buildWaitingScreen();
