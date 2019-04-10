@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "641431385570",
+    "firebase_url": "https://relix-3f992.firebaseio.com",
+    "project_id": "relix-3f992",
+    "storage_bucket": "relix-3f992.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:641431385570:android:36cb6035f45d382c",
+        "android_client_info": {
+          "package_name": "com.example.relix"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "641431385570-8vqe364kjspv4kuquqi0th6jbtkrt7bn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAaGc7FnBDbj3fO0EK2giMWfxAJQNU15E8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "641431385570-8vqe364kjspv4kuquqi0th6jbtkrt7bn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
