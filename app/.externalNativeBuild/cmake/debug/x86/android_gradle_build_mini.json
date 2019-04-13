@@ -1,0 +1,28 @@
+{
+  "buildFiles": [
+    "H:\\__MASTER PROJECTS\\Android Projects\\Relix\\app\\CMakeLists.txt"
+  ],
+  "cleanCommands": [
+    "H:\\Android\\android-sdk\\cmake\\3.6.4111459\\bin\\cmake.exe --build \"H:\\__MASTER PROJECTS\\Android Projects\\Relix\\app\\.externalNativeBuild\\cmake\\debug\\x86\" --target clean"
+  ],
+  "libraries": {
+    "Item-Debug-x86": {
+      "artifactName": "Item",
+      "buildCommand": "H:\\Android\\android-sdk\\cmake\\3.6.4111459\\bin\\cmake.exe --build \"H:\\__MASTER PROJECTS\\Android Projects\\Relix\\app\\.externalNativeBuild\\cmake\\debug\\x86\" --target Item",
+      "abi": "x86",
+      "output": "H:\\__MASTER PROJECTS\\Android Projects\\Relix\\app\\build\\intermediates\\cmake\\debug\\obj\\x86\\libItem.so"
+    },
+    "Test-Debug-x86": {
+      "artifactName": "Test",
+      "buildCommand": "H:\\Android\\android-sdk\\cmake\\3.6.4111459\\bin\\cmake.exe --build \"H:\\__MASTER PROJECTS\\Android Projects\\Relix\\app\\.externalNativeBuild\\cmake\\debug\\x86\" --target Test",
+      "abi": "x86",
+      "output": "H:\\__MASTER PROJECTS\\Android Projects\\Relix\\app\\build\\intermediates\\cmake\\debug\\obj\\x86\\libTest.so"
+    },
+    "native-lib-Debug-x86": {
+      "artifactName": "native-lib",
+      "buildCommand": "H:\\Android\\android-sdk\\cmake\\3.6.4111459\\bin\\cmake.exe --build \"H:\\__MASTER PROJECTS\\Android Projects\\Relix\\app\\.externalNativeBuild\\cmake\\debug\\x86\" --target native-lib",
+      "abi": "x86",
+      "output": "H:\\__MASTER PROJECTS\\Android Projects\\Relix\\app\\build\\intermediates\\cmake\\debug\\obj\\x86\\libnative-lib.so"
+    }
+  }
+}

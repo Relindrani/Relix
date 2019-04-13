@@ -1,0 +1,14 @@
+Executable : H:\Android\android-sdk\cmake\3.6.4111459\bin\cmake.exe
+arguments : 
+-HH:\__MASTER PROJECTS\Android Projects\Relix\app
+-BH:\__MASTER PROJECTS\Android Projects\Relix\app\.externalNativeBuild\cmake\release\armeabi-v7a
+-DANDROID_ABI=armeabi-v7a
+-DANDROID_PLATFORM=android-21
+-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=H:\__MASTER PROJECTS\Android Projects\Relix\app\build\intermediates\cmake\release\obj\armeabi-v7a
+-DCMAKE_BUILD_TYPE=Release
+-DANDROID_NDK=H:\Android\android-sdk\ndk-bundle
+-DCMAKE_TOOLCHAIN_FILE=H:\Android\android-sdk\ndk-bundle\build\cmake\android.toolchain.cmake
+-DCMAKE_MAKE_PROGRAM=H:\Android\android-sdk\cmake\3.6.4111459\bin\ninja.exe
+-GAndroid Gradle - Ninja
+jvmArgs : 
+

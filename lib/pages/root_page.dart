@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'login_page.dart';
-import 'home_page.dart';
+import 'landing_page.dart';
 
 import '../services/authentication.dart';
 
@@ -17,14 +17,12 @@ class RootPage extends StatefulWidget{
 enum AuthStatus{ NOT_DETERMINED, NOT_LOGGED_IN, LOGGED_IN }
 
 class _RootPageState extends State<RootPage>{
-  AuthStatus authStatus;
-  String _userId;
+  AuthStatus authStatus = AuthStatus.NOT_DETERMINED;
+  String _userId = "";
 
   @override
   void initState(){
     super.initState();
-    authStatus = AuthStatus.NOT_DETERMINED;
-    _userId = "";
     widget.auth.getCurrentUser().then((user){
       setState(() {
         if(user != null) _userId = user?.uid;
@@ -47,12 +45,12 @@ class _RootPageState extends State<RootPage>{
         break;
       case AuthStatus.LOGGED_IN:
         if(_userId.length > 0 && _userId != null){
-          return new HomePage(
+          return new LandingPage(
             userId: _userId,
             auth: widget.auth,
             onSignedOut: _onSignedOut,
           );
-        }
+        } else return _buildWaitingScreen();
         break;
       default:
         return _buildWaitingScreen();

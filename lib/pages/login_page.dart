@@ -170,13 +170,7 @@ class _LoginPageState extends State<LoginPage>{
           fontWeight: FontWeight.w300
         ),
       ),
-      onPressed: (){
-        _formKey.currentState.reset();
-        _errorMessage = "";
-        setState(() {
-          _formMode = (_formMode == FormMode.LOGIN) ? FormMode.SIGNUP : FormMode.LOGIN; 
-        });
-      },
+      onPressed: _formMode == FormMode.LOGIN ? _changeFormToSignup : _changeFormToLogin,
     );
   }
 
@@ -197,11 +191,18 @@ class _LoginPageState extends State<LoginPage>{
     }
   }
 
-  void _setForm(FormMode form){
+  void _changeFormToSignup(){
     _formKey.currentState.reset();
     _errorMessage = "";
     setState(() {
-      _formMode = form;
+      _formMode = FormMode.SIGNUP; 
+    });
+  }
+  void _changeFormToLogin(){
+    _formKey.currentState.reset();
+    _errorMessage = "";
+    setState(() {
+      _formMode = FormMode.LOGIN; 
     });
   }
 
@@ -225,7 +226,7 @@ class _LoginPageState extends State<LoginPage>{
         setState(() {
           _isLoading = false;
         });
-        if(userId.length > 0 && userId != null) widget.onSignedIn();
+        if(userId.length > 0 && userId != null && _formMode == FormMode.LOGIN) widget.onSignedIn();
       } catch(e){
         print("Error: $e");
         setState(() {
@@ -255,7 +256,7 @@ class _LoginPageState extends State<LoginPage>{
             new FlatButton(
               child: new Text("Dismiss"),
               onPressed: (){
-                _setForm(FormMode.LOGIN);
+                _changeFormToLogin();
                 Navigator.of(context).pop();
               },
             )

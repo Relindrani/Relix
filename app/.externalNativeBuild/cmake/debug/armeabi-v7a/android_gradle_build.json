@@ -1,0 +1,80 @@
+
+{
+	"buildFiles" : [ "H:/__MASTER PROJECTS/Android Projects/Relix/app/CMakeLists.txt" ],
+	"cleanCommands" : 
+	[
+		"H:\\Android\\android-sdk\\cmake\\3.6.4111459\\bin\\cmake.exe --build \"H:\\__MASTER PROJECTS\\Android Projects\\Relix\\app\\.externalNativeBuild\\cmake\\debug\\armeabi-v7a\" --target clean"
+	],
+	"cppFileExtensions" : [ "cpp" ],
+	"libraries" : 
+	{
+		"Item-Debug-armeabi-v7a" : 
+		{
+			"abi" : "armeabi-v7a",
+			"artifactName" : "Item",
+			"buildCommand" : "H:\\Android\\android-sdk\\cmake\\3.6.4111459\\bin\\cmake.exe --build \"H:\\__MASTER PROJECTS\\Android Projects\\Relix\\app\\.externalNativeBuild\\cmake\\debug\\armeabi-v7a\" --target Item",
+			"buildType" : "debug",
+			"files" : 
+			[
+				
+				{
+					"flags" : "  --target=armv7-none-linux-androideabi --gcc-toolchain=H:/Android/android-sdk/ndk-bundle/toolchains/arm-linux-androideabi-4.9/prebuilt/windows-x86_64 --sysroot=H:/Android/android-sdk/ndk-bundle/sysroot  -DItem_EXPORTS -isystem H:\\Android\\android-sdk\\ndk-bundle\\sources\\cxx-stl\\llvm-libc++\\include -isystem H:\\Android\\android-sdk\\ndk-bundle\\sources\\android\\support\\include -isystem H:\\Android\\android-sdk\\ndk-bundle\\sources\\cxx-stl\\llvm-libc++abi\\include  -isystem H:/Android/android-sdk/ndk-bundle/sysroot/usr/include/arm-linux-androideabi -D__ANDROID_API__=21 -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -march=armv7-a -mfloat-abi=softfp -mfpu=vfpv3-d16 -mthumb -Wa,--noexecstack -Wformat -Werror=format-security -std=c++11  -O0 -fno-limit-debug-info  -fPIC    -c ",
+					"src" : "H:/__MASTER PROJECTS/Android Projects/Relix/app/src/main/cpp/Item.cpp",
+					"workingDirectory" : "H:/__MASTER PROJECTS/Android Projects/Relix/app/.externalNativeBuild/cmake/debug/armeabi-v7a"
+				},
+				
+				{
+					"flags" : "  --target=armv7-none-linux-androideabi --gcc-toolchain=H:/Android/android-sdk/ndk-bundle/toolchains/arm-linux-androideabi-4.9/prebuilt/windows-x86_64 --sysroot=H:/Android/android-sdk/ndk-bundle/sysroot  -DItem_EXPORTS -isystem H:\\Android\\android-sdk\\ndk-bundle\\sources\\cxx-stl\\llvm-libc++\\include -isystem H:\\Android\\android-sdk\\ndk-bundle\\sources\\android\\support\\include -isystem H:\\Android\\android-sdk\\ndk-bundle\\sources\\cxx-stl\\llvm-libc++abi\\include  -isystem H:/Android/android-sdk/ndk-bundle/sysroot/usr/include/arm-linux-androideabi -D__ANDROID_API__=21 -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -march=armv7-a -mfloat-abi=softfp -mfpu=vfpv3-d16 -mthumb -Wa,--noexecstack -Wformat -Werror=format-security -std=c++11  -O0 -fno-limit-debug-info  -fPIC    -c ",
+					"src" : "H:/__MASTER PROJECTS/Android Projects/Relix/app/src/main/cpp/ItemTypes.cpp",
+					"workingDirectory" : "H:/__MASTER PROJECTS/Android Projects/Relix/app/.externalNativeBuild/cmake/debug/armeabi-v7a"
+				}
+			],
+			"output" : "H:/__MASTER PROJECTS/Android Projects/Relix/app/build/intermediates/cmake/debug/obj/armeabi-v7a/libItem.so",
+			"toolchain" : "1950843425"
+		},
+		"Test-Debug-armeabi-v7a" : 
+		{
+			"abi" : "armeabi-v7a",
+			"artifactName" : "Test",
+			"buildCommand" : "H:\\Android\\android-sdk\\cmake\\3.6.4111459\\bin\\cmake.exe --build \"H:\\__MASTER PROJECTS\\Android Projects\\Relix\\app\\.externalNativeBuild\\cmake\\debug\\armeabi-v7a\" --target Test",
+			"buildType" : "debug",
+			"files" : 
+			[
+				
+				{
+					"flags" : "  --target=armv7-none-linux-androideabi --gcc-toolchain=H:/Android/android-sdk/ndk-bundle/toolchains/arm-linux-androideabi-4.9/prebuilt/windows-x86_64 --sysroot=H:/Android/android-sdk/ndk-bundle/sysroot  -DTest_EXPORTS -isystem H:\\Android\\android-sdk\\ndk-bundle\\sources\\cxx-stl\\llvm-libc++\\include -isystem H:\\Android\\android-sdk\\ndk-bundle\\sources\\android\\support\\include -isystem H:\\Android\\android-sdk\\ndk-bundle\\sources\\cxx-stl\\llvm-libc++abi\\include  -isystem H:/Android/android-sdk/ndk-bundle/sysroot/usr/include/arm-linux-androideabi -D__ANDROID_API__=21 -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -march=armv7-a -mfloat-abi=softfp -mfpu=vfpv3-d16 -mthumb -Wa,--noexecstack -Wformat -Werror=format-security -std=c++11  -O0 -fno-limit-debug-info  -fPIC    -c ",
+					"src" : "H:/__MASTER PROJECTS/Android Projects/Relix/app/src/main/cpp/Test.cpp",
+					"workingDirectory" : "H:/__MASTER PROJECTS/Android Projects/Relix/app/.externalNativeBuild/cmake/debug/armeabi-v7a"
+				}
+			],
+			"output" : "H:/__MASTER PROJECTS/Android Projects/Relix/app/build/intermediates/cmake/debug/obj/armeabi-v7a/libTest.so",
+			"toolchain" : "1950843425"
+		},
+		"native-lib-Debug-armeabi-v7a" : 
+		{
+			"abi" : "armeabi-v7a",
+			"artifactName" : "native-lib",
+			"buildCommand" : "H:\\Android\\android-sdk\\cmake\\3.6.4111459\\bin\\cmake.exe --build \"H:\\__MASTER PROJECTS\\Android Projects\\Relix\\app\\.externalNativeBuild\\cmake\\debug\\armeabi-v7a\" --target native-lib",
+			"buildType" : "debug",
+			"files" : 
+			[
+				
+				{
+					"flags" : "  --target=armv7-none-linux-androideabi --gcc-toolchain=H:/Android/android-sdk/ndk-bundle/toolchains/arm-linux-androideabi-4.9/prebuilt/windows-x86_64 --sysroot=H:/Android/android-sdk/ndk-bundle/sysroot  -Dnative_lib_EXPORTS -isystem H:\\Android\\android-sdk\\ndk-bundle\\sources\\cxx-stl\\llvm-libc++\\include -isystem H:\\Android\\android-sdk\\ndk-bundle\\sources\\android\\support\\include -isystem H:\\Android\\android-sdk\\ndk-bundle\\sources\\cxx-stl\\llvm-libc++abi\\include  -isystem H:/Android/android-sdk/ndk-bundle/sysroot/usr/include/arm-linux-androideabi -D__ANDROID_API__=21 -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -march=armv7-a -mfloat-abi=softfp -mfpu=vfpv3-d16 -mthumb -Wa,--noexecstack -Wformat -Werror=format-security -std=c++11  -O0 -fno-limit-debug-info  -fPIC    -c ",
+					"src" : "H:/__MASTER PROJECTS/Android Projects/Relix/app/src/main/cpp/native-lib.cpp",
+					"workingDirectory" : "H:/__MASTER PROJECTS/Android Projects/Relix/app/.externalNativeBuild/cmake/debug/armeabi-v7a"
+				}
+			],
+			"output" : "H:/__MASTER PROJECTS/Android Projects/Relix/app/build/intermediates/cmake/debug/obj/armeabi-v7a/libnative-lib.so",
+			"toolchain" : "1950843425"
+		}
+	},
+	"toolchains" : 
+	{
+		"1950843425" : 
+		{
+			"cCompilerExecutable" : "H:/Android/android-sdk/ndk-bundle/toolchains/llvm/prebuilt/windows-x86_64/bin/clang.exe",
+			"cppCompilerExecutable" : "H:/Android/android-sdk/ndk-bundle/toolchains/llvm/prebuilt/windows-x86_64/bin/clang++.exe"
+		}
+	}
+}
