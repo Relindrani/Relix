@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'login_page.dart';
-import 'home_page.dart';
+import 'landing_page.dart';
 
 import '../services/authentication.dart';
 
@@ -45,7 +45,7 @@ class _RootPageState extends State<RootPage>{
         break;
       case AuthStatus.LOGGED_IN:
         if(_userId.length > 0 && _userId != null){
-          return new HomePage(
+          return new LandingPage(
             userId: _userId,
             auth: widget.auth,
             onSignedOut: _onSignedOut,

@@ -9,13 +9,13 @@ class LoginPage extends StatefulWidget{
   final VoidCallback onSignedIn;
 
   @override
-  State<StatefulWidget> createState() => new _LoginPageState(new GlobalKey<FormState>());
+  State<StatefulWidget> createState() => new _LoginPageState();
 }
 
 enum FormMode { LOGIN, SIGNUP }
 
 class _LoginPageState extends State<LoginPage>{
-  final _formKey;
+  final _formKey = new GlobalKey<FormState>();
 
   String _email;
   String _password;
@@ -23,8 +23,6 @@ class _LoginPageState extends State<LoginPage>{
 
   FormMode _formMode;
   bool _isLoading;
-
-  _LoginPageState(this._formKey);
 
   @override
   void initState(){

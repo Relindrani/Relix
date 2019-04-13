@@ -1,0 +1,5 @@
+H:/__MASTER PROJECTS/Android Projects/Relix/app/.externalNativeBuild/cmake/debug/arm64-v8a/CMakeFiles/native-lib.dir
+H:/__MASTER PROJECTS/Android Projects/Relix/app/.externalNativeBuild/cmake/debug/arm64-v8a/CMakeFiles/rebuild_cache.dir
+H:/__MASTER PROJECTS/Android Projects/Relix/app/.externalNativeBuild/cmake/debug/arm64-v8a/CMakeFiles/Test.dir
+H:/__MASTER PROJECTS/Android Projects/Relix/app/.externalNativeBuild/cmake/debug/arm64-v8a/CMakeFiles/Item.dir
+H:/__MASTER PROJECTS/Android Projects/Relix/app/.externalNativeBuild/cmake/debug/arm64-v8a/CMakeFiles/edit_cache.dir

@@ -1,0 +1,28 @@
+{
+  "buildFiles": [
+    "H:\\__MASTER PROJECTS\\Android Projects\\Relix\\app\\CMakeLists.txt"
+  ],
+  "cleanCommands": [
+    "H:\\Android\\android-sdk\\cmake\\3.6.4111459\\bin\\cmake.exe --build \"H:\\__MASTER PROJECTS\\Android Projects\\Relix\\app\\.externalNativeBuild\\cmake\\release\\arm64-v8a\" --target clean"
+  ],
+  "libraries": {
+    "Item-Release-arm64-v8a": {
+      "artifactName": "Item",
+      "buildCommand": "H:\\Android\\android-sdk\\cmake\\3.6.4111459\\bin\\cmake.exe --build \"H:\\__MASTER PROJECTS\\Android Projects\\Relix\\app\\.externalNativeBuild\\cmake\\release\\arm64-v8a\" --target Item",
+      "abi": "arm64-v8a",
+      "output": "H:\\__MASTER PROJECTS\\Android Projects\\Relix\\app\\build\\intermediates\\cmake\\release\\obj\\arm64-v8a\\libItem.so"
+    },
+    "Test-Release-arm64-v8a": {
+      "artifactName": "Test",
+      "buildCommand": "H:\\Android\\android-sdk\\cmake\\3.6.4111459\\bin\\cmake.exe --build \"H:\\__MASTER PROJECTS\\Android Projects\\Relix\\app\\.externalNativeBuild\\cmake\\release\\arm64-v8a\" --target Test",
+      "abi": "arm64-v8a",
+      "output": "H:\\__MASTER PROJECTS\\Android Projects\\Relix\\app\\build\\intermediates\\cmake\\release\\obj\\arm64-v8a\\libTest.so"
+    },
+    "native-lib-Release-arm64-v8a": {
+      "artifactName": "native-lib",
+      "buildCommand": "H:\\Android\\android-sdk\\cmake\\3.6.4111459\\bin\\cmake.exe --build \"H:\\__MASTER PROJECTS\\Android Projects\\Relix\\app\\.externalNativeBuild\\cmake\\release\\arm64-v8a\" --target native-lib",
+      "abi": "arm64-v8a",
+      "output": "H:\\__MASTER PROJECTS\\Android Projects\\Relix\\app\\build\\intermediates\\cmake\\release\\obj\\arm64-v8a\\libnative-lib.so"
+    }
+  }
+}
