@@ -10,6 +10,12 @@ import '../models/item.dart';
 import '../models/itemTypes.dart';
 import '../models/steam_item.dart';
 
+import 'settings_page.dart';
+import 'landing_page.dart';
+
+import '../globals.dart' as globals;
+
+
 class HomePage extends StatefulWidget{
 
   @override
@@ -18,42 +24,31 @@ class HomePage extends StatefulWidget{
 
 class HomePageState extends State<HomePage>{
 
+  bool _isLoading;
+
   List<SteamItem> _items = <SteamItem>[];
 
-  Future<List<SteamItem>> getItems() async{
-    String url = 'http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=8BCD4971534B22531611F207DEA0FD47&steamid=76561198067155644&include_appinfo=%27true%27&format=json';
-    final response = await http.get(url, headers: {"Accept": "application/json"});
-
-    if(response.statusCode == 200){
-      var data = json.decode(response.body);
-      var rest = data["response"]["games"] as List;
-      if(rest != null) _items = rest.map<SteamItem>((json) => SteamItem.fromJson(json)).toList();
-    }
-    else throw Exception('Failed to load');
-
-    _items.sort((a, b) => a.name.compareTo(b.name));
-
-    return _items;
+  @override
+  void initState(){
+    super.initState();
+    _isLoading = false;
+    _items = globals.items;
   }
 
   @override
   Widget build(BuildContext context){
     return new Scaffold(
       body: Center(
-        child: FutureBuilder<List<SteamItem>>(
-          future: getItems(),
-          builder: (context, snapshot){
-            if(snapshot.hasData){
-              return ListView.builder(
-                itemCount: _items.length,
-                itemBuilder: (context, index) => GameTileTest(_items[index]),
-              );
-            } else if(snapshot.hasError)return Text("${snapshot.error}");
-            return CircularProgressIndicator();
-          }
-        ),
+        child: (_items != null && _items.isNotEmpty) ? new ListView.builder(
+          itemCount: _items.length,
+          itemBuilder: (context, index) => GameTileTest(_items[index]),
+        ) : _showCircularProgress(),
       ),
     );
+  }
+
+  Widget _showCircularProgress(){
+    return _isLoading ? Center(child: CircularProgressIndicator()) : Container(height: 0.0, width: 0.0);
   }
 }
 

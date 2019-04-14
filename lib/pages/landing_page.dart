@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 
 import '../services/authentication.dart';
 
+import '../models/steam_item.dart';
+
 import '../pages/home_page.dart';
 import '../pages/category_view_page.dart';
 import '../pages/search_page.dart';
 import '../pages/settings_page.dart';
-
 class LandingPage extends StatefulWidget{
   LandingPage({Key key, this.auth, this.userId, this.onSignedOut});
 
@@ -19,8 +20,8 @@ class LandingPage extends StatefulWidget{
 }
 
 class LandingPageState extends State<LandingPage> with SingleTickerProviderStateMixin{
-  TabController controller;
 
+  TabController controller;
   @override
   void initState(){
     super.initState();
@@ -47,7 +48,7 @@ class LandingPageState extends State<LandingPage> with SingleTickerProviderState
         ],
       ),
       body: new TabBarView(
-        children: <Widget>[new HomePage(), new CategoryViewPage(), new SearchPage(), new SettingsPage()],
+        children: <Widget>[new HomePage(), new CategoryViewPage(), new SearchPage(), new SettingsPage(userId: widget.userId, auth: widget.auth, onSignedOut: widget.onSignedOut,)],
         controller: controller,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
