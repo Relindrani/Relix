@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../models/item.dart';
+import '../models/steam_item.dart';
 
 class GameTileTest extends StatelessWidget{
-  final Item _item;
+  final SteamItem _item;
   GameTileTest(this._item);
 
   @override

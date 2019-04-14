@@ -1,13 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'dart:async';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
-
 import '../services/authentication.dart';
-
-import '../models/item.dart';
-import '../widgets/game_tile_test.dart';
 
 import '../pages/home_page.dart';
 import '../pages/category_view_page.dart';

@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import '../widgets/game_tile_test.dart';
 
 import '../models/item.dart';
+import '../models/itemTypes.dart';
+import '../models/steam_item.dart';
 
 class HomePage extends StatefulWidget{
 
@@ -16,16 +18,16 @@ class HomePage extends StatefulWidget{
 
 class HomePageState extends State<HomePage>{
 
-  List<Item> _items = <Item>[];
+  List<SteamItem> _items = <SteamItem>[];
 
-  Future<List<Item>> getItems() async{
+  Future<List<SteamItem>> getItems() async{
     String url = 'http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=8BCD4971534B22531611F207DEA0FD47&steamid=76561198067155644&include_appinfo=%27true%27&format=json';
     final response = await http.get(url, headers: {"Accept": "application/json"});
 
     if(response.statusCode == 200){
       var data = json.decode(response.body);
       var rest = data["response"]["games"] as List;
-      if(rest != null) _items = rest.map<Item>((json) => Item.fromJson(json)).toList();
+      if(rest != null) _items = rest.map<SteamItem>((json) => SteamItem.fromJson(json)).toList();
     }
     else throw Exception('Failed to load');
 
@@ -38,7 +40,7 @@ class HomePageState extends State<HomePage>{
   Widget build(BuildContext context){
     return new Scaffold(
       body: Center(
-        child: FutureBuilder<List<Item>>(
+        child: FutureBuilder<List<SteamItem>>(
           future: getItems(),
           builder: (context, snapshot){
             if(snapshot.hasData){
