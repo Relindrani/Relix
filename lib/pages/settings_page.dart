@@ -7,6 +7,8 @@ import 'package:http/http.dart' as http;
 import '../services/authentication.dart';
 
 import '../models/steam_item.dart';
+import '../models/item.dart';
+import '../models/itemTypes.dart';
 
 import 'landing_page.dart';
 
@@ -40,7 +42,7 @@ class SettingsPageState extends State<SettingsPage>{
     _steamErrorMessage = "";
     _steamId = "";
     _isLoading = false;
-    _items = globals.items;
+    _items = globals.steamGames;
   }
 
   @override
@@ -61,7 +63,7 @@ class SettingsPageState extends State<SettingsPage>{
 
   Widget _showBody(){
     return new Container(
-      padding: EdgeInsets.all(16.0),
+      padding: EdgeInsets.all(36.0),
       child: new Form(
         key: _formKey,
         child: new ListView(
@@ -70,7 +72,7 @@ class SettingsPageState extends State<SettingsPage>{
             _showSteamInput(),
             _showSteamInputButton(),
             _showSteamErrorMessage(),
-            new Padding(padding: EdgeInsets.fromLTRB(0.0, 250.0, 0.0, 0.0)),
+            Padding(padding: EdgeInsets.only(top: 200.0),),
             _showClearDataButton(),
             _showResetPasswordButton(),
             _showSignOutButton()
@@ -92,11 +94,7 @@ class SettingsPageState extends State<SettingsPage>{
         keyboardType: TextInputType.number,
         autofocus: false,
         decoration: new InputDecoration(
-          hintText: 'Steam Profile Id: 76561198067155644',
-          icon: new Icon(
-            Icons.input,
-            color: Colors.grey,
-          )
+          hintText: 'Steam Profile Id: 76561198067155644'
         ),
         validator: (value) => value.isEmpty ? 'Steam Id Field can\'t be empty' : null,
         onSaved: (value) => _steamId = value,
@@ -106,7 +104,7 @@ class SettingsPageState extends State<SettingsPage>{
 
   Widget _showSteamInputButton(){
     return new Padding(
-      padding: EdgeInsets.fromLTRB(40.0, 10.0, 0.0, 0.0),
+      padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
       child: new MaterialButton(
         elevation: 5.0,
         minWidth: 200.0,
@@ -121,7 +119,6 @@ class SettingsPageState extends State<SettingsPage>{
         ),
         onPressed: () async{
           if(_formKey.currentState.validate())_formKey.currentState.save();
-          print(_steamId);
           if(_items.isEmpty || _items == null){
             await getItems().then((result){
               _items = result;
@@ -146,8 +143,18 @@ class SettingsPageState extends State<SettingsPage>{
             _steamErrorMessage = 'Successfully added '+gamesAdded.toString()+' games!';
             setState(() {});
           }
-          print(_items.length.toString());
-          globals.items = _items;
+          if(globals.items.isEmpty || globals.items == null){
+            for(final i in _items) globals.items.add(new Game(i.name, Categories.GAME, 'path', 'desc', 0.0, 'Steam', Platform.PC, true, true, Case.NO_CASE, '', CompleteStatus.NOT_PLAYED));
+          }else{
+            for(final i in _items){
+              int counter = 0;
+              for(final j in globals.items){
+                if(i.name == j.name) break;
+                else counter++;
+              }
+              if(counter == _items.length) globals.items.add(new Game(i.name, Categories.GAME, 'path', 'desc', 0.0, 'Steam', Platform.PC, true, true, Case.NO_CASE, '', CompleteStatus.NOT_PLAYED));
+            }
+          }
         },
       ),
     );
@@ -169,11 +176,11 @@ class SettingsPageState extends State<SettingsPage>{
   }
 
   Widget _showSignOutButton(){
-    return new Padding(
-      padding: EdgeInsets.only(top: 0.0),
+    return new Align(
+      alignment: FractionalOffset.bottomCenter,
       child: new MaterialButton(
         elevation: 5.0,
-        minWidth: 200.0,
+        minWidth: 500.0,
         height: 42.0,
         color: Color.fromARGB(255, 6, 98, 157),
         child: new Text(
@@ -189,11 +196,11 @@ class SettingsPageState extends State<SettingsPage>{
   }
 
   Widget _showResetPasswordButton(){
-    return new Padding(
-      padding: EdgeInsets.only(top: 0.0),
+    return new Align(
+      alignment: FractionalOffset.bottomCenter,
       child: new MaterialButton(
         elevation: 5.0,
-        minWidth: 200.0,
+        minWidth: 500.0,
         height: 42.0,
         color: Color.fromARGB(255, 6, 98, 157),
         child: new Text(
@@ -209,11 +216,11 @@ class SettingsPageState extends State<SettingsPage>{
   }
 
   Widget _showClearDataButton(){
-    return new Padding(
-      padding: EdgeInsets.only(top: 0.0),
+    return new Align(
+      alignment: FractionalOffset.bottomCenter,
       child: new MaterialButton(
         elevation: 5.0,
-        minWidth: 200.0,
+        minWidth: 500.0,
         height: 42.0,
         color: Colors.red,
         child: new Text(
@@ -238,7 +245,7 @@ class SettingsPageState extends State<SettingsPage>{
       if(rest != null) _items = rest.map<SteamItem>((json) => SteamItem.fromJson(json)).toList();
     }
     else{
-      _steamErrorMessage = 'Unable to load library. Confirm you entered profile ID correctly and game library is set to public in steam settings.';
+      _steamErrorMessage = 'Unable to load library. Confirm you entered profile ID correctly and make sure your game library is set to public in steam settings.';
       setState(() {});
       throw Exception('Failed to load');
     }

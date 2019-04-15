@@ -37,16 +37,6 @@ class LandingPageState extends State<LandingPage> with SingleTickerProviderState
   @override
   Widget build(BuildContext context){
     return new Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text("Steam Games"),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.error),
-            onPressed: () => widget.onSignedOut(),
-          )
-        ],
-      ),
       body: new TabBarView(
         children: <Widget>[new HomePage(), new CategoryViewPage(), new SearchPage(), new SettingsPage(userId: widget.userId, auth: widget.auth, onSignedOut: widget.onSignedOut,)],
         controller: controller,

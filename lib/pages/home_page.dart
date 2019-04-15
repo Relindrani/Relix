@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 
 import '../widgets/game_tile_test.dart';
+import '../widgets/item_tile.dart';
 
 import '../models/item.dart';
 import '../models/itemTypes.dart';
@@ -14,7 +15,6 @@ import 'settings_page.dart';
 import 'landing_page.dart';
 
 import '../globals.dart' as globals;
-
 
 class HomePage extends StatefulWidget{
 
@@ -26,7 +26,7 @@ class HomePageState extends State<HomePage>{
 
   bool _isLoading;
 
-  List<SteamItem> _items = <SteamItem>[];
+  List<Item> _items = <Item>[];
 
   @override
   void initState(){
@@ -38,10 +38,14 @@ class HomePageState extends State<HomePage>{
   @override
   Widget build(BuildContext context){
     return new Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text("Home Page"),
+      ),
       body: Center(
         child: (_items != null && _items.isNotEmpty) ? new ListView.builder(
           itemCount: _items.length,
-          itemBuilder: (context, index) => GameTileTest(_items[index]),
+          itemBuilder: (context, index) => ItemTile(_items[index]),
         ) : _showCircularProgress(),
       ),
     );

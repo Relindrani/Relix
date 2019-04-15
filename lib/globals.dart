@@ -1,3 +1,5 @@
 import 'models/steam_item.dart';
+import 'models/item.dart';
 
-List<SteamItem> items = <SteamItem>[];
+List<SteamItem> steamGames = <SteamItem>[];
+List<Item> items = <Item>[];
