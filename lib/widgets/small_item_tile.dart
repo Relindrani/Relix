@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import '../models/item.dart';
 import '../models/itemTypes.dart';
 
-class ItemTile extends StatelessWidget{
+class SmallItemTile extends StatelessWidget{
   final dynamic _item;
-  ItemTile(this._item);
+  SmallItemTile(this._item);
 
   @override
   Widget build(BuildContext context){
     return Card(
-      child: InkWell(
+      elevation: 10.0,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -25,21 +25,13 @@ class ItemTile extends StatelessWidget{
                     top: 0.0,
                     left: 5.0,
                     right: 5.0,
-                    child: Text(_item.name, textAlign: TextAlign.center,maxLines: 2,),
+                    child: Text(_item.name, textAlign: TextAlign.center,maxLines: 1,),
                   ),
-                  Positioned(
-                    bottom: 5.0,
-                    left: 5.0,
-                    right: 5.0,
-                    child: Text(formatText(_item.category.toString()), textAlign: TextAlign.center,)
-                  )
                 ],
               ),
             ),
           ],
         ),
-        onTap: () => print("tap"),
-      ),
     );
   }
 

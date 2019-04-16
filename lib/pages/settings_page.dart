@@ -144,7 +144,7 @@ class SettingsPageState extends State<SettingsPage>{
             setState(() {});
           }
           if(globals.items.isEmpty || globals.items == null){
-            for(final i in _items) globals.items.add(new Game(i.name, Categories.GAME, 'path', 'desc', 0.0, 'Steam', Platform.PC, true, true, Case.NO_CASE, '', CompleteStatus.NOT_PLAYED));
+            for(final i in _items) globals.items.add(new Game(i.name, Categories.GAME, 'http://media.steampowered.com/steamcommunity/public/images/apps/' + i.appId.toString() + '/' + i.logoUrl + '.jpg', 'desc', 0.0, 'Steam', Platform.PC, true, true, Case.NO_CASE, '', CompleteStatus.NOT_PLAYED));
           }else{
             for(final i in _items){
               int counter = 0;

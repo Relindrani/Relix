@@ -12,7 +12,8 @@ class Relix extends StatelessWidget{
       title: "Relix",
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blueGrey
+        primarySwatch: Colors.blueGrey,
+        splashColor: Colors.transparent
       ),
       home: new RootPage(auth: new Auth())
     );

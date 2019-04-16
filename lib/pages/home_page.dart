@@ -1,18 +1,7 @@
-import 'dart:async';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
-
 import 'package:flutter/material.dart';
-
-import '../widgets/game_tile_test.dart';
 import '../widgets/item_tile.dart';
 
 import '../models/item.dart';
-import '../models/itemTypes.dart';
-import '../models/steam_item.dart';
-
-import 'settings_page.dart';
-import 'landing_page.dart';
 
 import '../globals.dart' as globals;
 
@@ -43,35 +32,16 @@ class HomePageState extends State<HomePage>{
         title: Text("Home Page"),
       ),
       body: Center(
-        child: (_items != null && _items.isNotEmpty) ? new ListView.builder(
+        child: (_items != null && _items.isNotEmpty) ? new GridView.builder(
+          gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
           itemCount: _items.length,
           itemBuilder: (context, index) => ItemTile(_items[index]),
         ) : _showCircularProgress(),
-      ),
+      )
     );
   }
 
   Widget _showCircularProgress(){
-    return _isLoading ? Center(child: CircularProgressIndicator()) : Container(height: 0.0, width: 0.0);
+    return _isLoading ? Center(child: CircularProgressIndicator()) : Text("No Items Found");
   }
 }
-
-/**
- * ?Call API request on button press
-        RaisedButton(
-          onPressed: (){
-            fetchPost().then((result) {
-                print('In Builder');
-            })
-          },
-          child: Text('Get data'),
-        )
-
-        RaisedButton(
-          onPressed: () async {
-            var result = await fetchPost()
-            print('In Builder');
-          },
-          child: Text('Get data'),
-        )
- */
