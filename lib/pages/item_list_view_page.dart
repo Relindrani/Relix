@@ -7,8 +7,12 @@ import '../globals.dart' as globals;
 
 class ItemListViewPage extends StatelessWidget{
   final Categories _cat;
-  final List<Item> _items;
-  ItemListViewPage(this._cat, this._items);
+  int catCount = 0;
+  ItemListViewPage(this._cat){
+    for(final i in globals.items){
+      if(i.category == _cat)catCount+=1;
+    }
+  }
 
   int offset = 0;
 
@@ -20,15 +24,15 @@ class ItemListViewPage extends StatelessWidget{
         title: Text(formatTextPlural(_cat.toString())),
       ),
       body: Center(
-        child: (_items != null && _items.isNotEmpty) ? new GridView.builder(
+        child: (globals.items != null && globals.items.isNotEmpty) ? new GridView.builder(
           gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
-          itemCount: _items.length,
-          itemBuilder: (context, index) {
-            for(var i = offset; i < _items.length; i++){
-              if(_items[i].category == _cat){
+          itemCount: catCount,
+          itemBuilder: (context, index) {for(var i = offset; i < globals.items.length; i++){
+              if(globals.items[i].category == _cat || _cat == Categories.ALL_ITEM){
                 offset++;
-                return new ItemTile(_items[i]);
+                return new ItemTile(globals.items[i]);
               }
+              offset++;
             }
             return new Card();
           },

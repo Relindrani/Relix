@@ -18,10 +18,3 @@ class SteamItem{
     );
   }
 }
-
-/**
- * ?Don't extend Game
- * ?Leave as separate item then create new Game from this
- * ?Store this in database and keep list of Steam items
- * ?Compare app id to existing list each time api is called to prevent duplicates
- */

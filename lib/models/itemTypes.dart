@@ -85,9 +85,13 @@ class CollectorsEdition extends Item{
   CollectorsEdition(String name, Categories category, String picPath, String desc, double price, String purchasedAt, this._platform) : super(name, category, picPath, desc, price, purchasedAt);
 
   Platform _platform;
+  String _series;
 
   Platform get platform => _platform;
   set platform(Platform p) => _platform = p;
+
+  String get series => _series;
+  set series(String s) => _series = s;
 }
 
 class Clothing extends Item{

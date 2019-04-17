@@ -6,21 +6,7 @@ import '../widgets/category_view_tile.dart';
 
 import '../globals.dart' as globals;
 
-class CategoryViewPage extends StatefulWidget{
-
-  @override
-  State<StatefulWidget> createState() => CategoryViewPageState();
-}
-
-class CategoryViewPageState extends State<CategoryViewPage>{
-
-  List<Item> _items = <Item>[];
-
-  @override
-  void initState(){
-    super.initState();
-    _items = globals.items;
-  }
+class CategoryViewPage extends StatelessWidget{
 
   @override
   Widget build(BuildContext context){
@@ -35,7 +21,7 @@ class CategoryViewPageState extends State<CategoryViewPage>{
           padding: EdgeInsets.all(10.0),
           gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 1),
           itemCount: Categories.values.length,
-          itemBuilder: (context, index) => CategoryViewTile(Categories.values[index], _items),
+          itemBuilder: (context, index) => CategoryViewTile(Categories.values[index]),
         )
       )
     );

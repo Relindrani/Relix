@@ -152,9 +152,10 @@ class SettingsPageState extends State<SettingsPage>{
                 if(i.name == j.name) break;
                 else counter++;
               }
-              if(counter == _items.length) globals.items.add(new Game(i.name, Categories.GAME, 'path', 'desc', 0.0, 'Steam', Platform.PC, true, true, Case.NO_CASE, '', CompleteStatus.NOT_PLAYED));
+              if(counter <= _items.length) globals.items.add(new Game(i.name, Categories.GAME, 'http://media.steampowered.com/steamcommunity/public/images/apps/' + i.appId.toString() + '/' + i.logoUrl + '.jpg', 'desc', 0.0, 'Steam', Platform.PC, true, true, Case.NO_CASE, '', CompleteStatus.NOT_PLAYED));
             }
           }
+          globals.items.sort();
         },
       ),
     );

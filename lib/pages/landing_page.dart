@@ -8,6 +8,8 @@ import '../pages/home_page.dart';
 import '../pages/category_view_page.dart';
 import '../pages/search_page.dart';
 import '../pages/settings_page.dart';
+import '../pages/add_new_item_page.dart';
+
 class LandingPage extends StatefulWidget{
   LandingPage({Key key, this.auth, this.userId, this.onSignedOut});
 
@@ -43,9 +45,7 @@ class LandingPageState extends State<LandingPage> with SingleTickerProviderState
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-            
-        },
+        onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => AddNewItemPage())),
         tooltip: 'New Item',
         child: Icon(Icons.add),
         elevation: 2.0,

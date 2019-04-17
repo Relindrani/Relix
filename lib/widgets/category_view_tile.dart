@@ -9,8 +9,7 @@ import '../pages/item_list_view_page.dart';
 
 class CategoryViewTile extends StatelessWidget{
   final Categories _cat;
-  final List<Item> _items;
-  CategoryViewTile(this._cat, this._items);
+  CategoryViewTile(this._cat);
 
   int offset = 0;
   
@@ -28,7 +27,6 @@ class CategoryViewTile extends StatelessWidget{
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Flexible(
-              fit: FlexFit.tight,
               flex: 2,
               child: Container(
                 alignment: Alignment.center,
@@ -46,20 +44,21 @@ class CategoryViewTile extends StatelessWidget{
               flex: 16,
               child: Container(
                 padding: EdgeInsets.all(15.0),
-                child: (_items != null && _items.isNotEmpty) ? new GridView.builder(
+                child: (globals.items != null && globals.items.isNotEmpty) ? new GridView.builder(
                   gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
                   itemCount: 9,
                   physics: const NeverScrollableScrollPhysics(),
                   itemBuilder: (context, index) { 
-                    for(var i = offset; i < _items.length; i++){
-                      if(_items[i].category == _cat){
+                    for(int i = offset; i < globals.items.length; i++){
+                      if(globals.items[i].category == _cat || _cat == Categories.ALL_ITEM){
                         offset++;
-                        return new SmallItemTile(_items[i]);
+                        return new SmallItemTile(globals.items[i]);
                       }
+                      offset++;
                     }
-                    return new Card();
+                    return new Container(color: Colors.blueGrey,);
                   }
-                ) : Text("No items found"),
+                ) : new Container(color: Colors.blueGrey,),
               ),
             ),
             Flexible(
@@ -68,14 +67,14 @@ class CategoryViewTile extends StatelessWidget{
             )
           ],
         ),
-        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => ItemListViewPage(_cat, _items))),
+        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => ItemListViewPage(_cat))),
       ),
     );
   }
 
   List<Item> getCategoryItems(Categories cat){
     List<Item> i = <Item>[];
-    for(final item in _items){
+    for(final item in globals.items){
       if(item.category == cat){
         i.add(item);
       }

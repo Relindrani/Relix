@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../widgets/item_tile.dart';
 
 import '../models/item.dart';
+import '../models/itemTypes.dart';
 
 import '../globals.dart' as globals;
 
@@ -13,16 +14,7 @@ class HomePage extends StatefulWidget{
 
 class HomePageState extends State<HomePage>{
 
-  bool _isLoading;
-
-  List<Item> _items = <Item>[];
-
-  @override
-  void initState(){
-    super.initState();
-    _isLoading = false;
-    _items = globals.items;
-  }
+  bool _isLoading = false;
 
   @override
   Widget build(BuildContext context){
@@ -32,10 +24,10 @@ class HomePageState extends State<HomePage>{
         title: Text("Home Page"),
       ),
       body: Center(
-        child: (_items != null && _items.isNotEmpty) ? new GridView.builder(
+        child: (globals.items != null && globals.items.isNotEmpty) ? new GridView.builder(
           gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
-          itemCount: _items.length,
-          itemBuilder: (context, index) => ItemTile(_items[index]),
+          itemCount: globals.items.length,
+          itemBuilder: (context, index) => ItemTile(globals.items[index]),
         ) : _showCircularProgress(),
       )
     );

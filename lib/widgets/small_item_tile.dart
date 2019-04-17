@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'dart:convert';
+
 import '../models/item.dart';
 import '../models/itemTypes.dart';
 
@@ -15,7 +17,7 @@ class SmallItemTile extends StatelessWidget{
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Expanded(
-              child: (_item.picPath != null) ? (_item is Game && _item.isSteamGame) ? Image.network(_item.picPath) : Image.asset(_item.picPath): Container()
+              child: (_item.picPath != null) ? (_item is Game && _item.isSteamGame) ? Image.network(_item.picPath) : Image.memory(base64.decode(_item.picPath)): Container()
             ),
             Expanded(
               child: Stack(
