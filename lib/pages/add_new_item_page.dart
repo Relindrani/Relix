@@ -84,7 +84,7 @@ class AddNewItemPageState extends State<AddNewItemPage>{
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             _showCategoryDropDown(),
-            _showImage(9),
+            _showImage(),
             _showNameField(),
             _showDescriptionField(),
             Row(children: <Widget>[
@@ -109,7 +109,7 @@ class AddNewItemPageState extends State<AddNewItemPage>{
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             _showCategoryDropDown(),
-            _showImage(9),
+            _showImage(),
             _showNameField(),
             _showDescriptionField(),
             _showSeriesField(),
@@ -141,7 +141,7 @@ class AddNewItemPageState extends State<AddNewItemPage>{
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             _showCategoryDropDown(),
-            _showImage(9),
+            _showImage(),
             _showNameField(),
             _showDescriptionField(),
             Row(children: <Widget>[
@@ -167,7 +167,7 @@ class AddNewItemPageState extends State<AddNewItemPage>{
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             _showCategoryDropDown(),
-            _showImage(9),
+            _showImage(),
             _showNameField(),
             _showDescriptionField(),
             Row(children: <Widget>[
@@ -193,7 +193,7 @@ class AddNewItemPageState extends State<AddNewItemPage>{
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             _showCategoryDropDown(),
-            _showImage(9),
+            _showImage(),
             _showNameField(),
             _showDescriptionField(),
             _showSeriesField(),
@@ -220,7 +220,7 @@ class AddNewItemPageState extends State<AddNewItemPage>{
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             _showCategoryDropDown(),
-            _showImage(9),
+            _showImage(),
             _showNameField(),
             _showDescriptionField(),
             _showSeriesField(),
@@ -246,7 +246,7 @@ class AddNewItemPageState extends State<AddNewItemPage>{
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             _showCategoryDropDown(),
-            _showImage(9),
+            _showImage(),
             _showNameField(),
             _showDescriptionField(),
             _showSeriesField(),
@@ -273,7 +273,7 @@ class AddNewItemPageState extends State<AddNewItemPage>{
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             _showCategoryDropDown(),
-            _showImage(9),
+            _showImage(),
             _showNameField(),
             _showDescriptionField(),
             _showSeriesField(),
@@ -299,7 +299,7 @@ class AddNewItemPageState extends State<AddNewItemPage>{
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             _showCategoryDropDown(),
-            _showImage(9),
+            _showImage(),
             _showNameField(),
             _showDescriptionField(),
             _showSeriesField(),
@@ -335,18 +335,17 @@ class AddNewItemPageState extends State<AddNewItemPage>{
     ); 
   }
 
-  Widget _showImage(int flex){
+  Widget _showImage(){
     return Expanded(
-      flex: flex,
+      flex: 9,
       child: Padding(
         padding: EdgeInsets.only(top: 5.0),
         child: InkWell(
-          child: Container(
-            decoration: BoxDecoration(border: Border.all(width: 5.0, color: Colors.blueGrey)),
+          child: SizedBox.expand(
             child: (_image == null) ? Center(
               child: Text("Tap to take picture")
             ) : Container(
-              child: Image.file(_image),
+              child: Image.file(_image, fit: BoxFit.fill,),
             ),
           ),
           onTap: getImage,
@@ -380,6 +379,7 @@ class AddNewItemPageState extends State<AddNewItemPage>{
         child: Container(
           alignment: Alignment.center,
           child: DropdownButton<Categories>(
+            isExpanded: true,
             hint: Text("Select Category"),
             value: _cat,
             onChanged: (Categories newCat){
@@ -451,6 +451,7 @@ class AddNewItemPageState extends State<AddNewItemPage>{
         child: Container(
           alignment: Alignment.center,
           child: DropdownButton<Platform>(
+            isExpanded: true,
             hint: Text("Select Platform"),
             value: _plat,
             onChanged: (Platform newPlat){
@@ -651,8 +652,12 @@ class AddNewItemPageState extends State<AddNewItemPage>{
     if(_validateAndSave()){
       try{
         Item i;
-        List<int> imageBytes = _image.readAsBytesSync();
-        String imgPath = base64.encode(imageBytes);
+        List<int> imageBytes;
+        String imgPath = "";
+        if(_image != null){
+          imageBytes = _image.readAsBytesSync();
+          imgPath = base64.encode(imageBytes);
+        }
         switch (_cat){
           case Categories.GAME:
             i = new Game(_name, _cat, imgPath, _desc, _price, _purchasedAt, _plat, false, _isDigitalGame, _case, _series, _comp);
@@ -682,13 +687,13 @@ class AddNewItemPageState extends State<AddNewItemPage>{
             i = new Item(_name, _cat, imgPath, _desc, _price, _purchasedAt);
         }
         globals.items.add(i);
+        globals.items.sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
         Navigator.pop(context);
       }catch(e){
-
+        print(e);
       }
     }
   }
-
   bool _validateAndSave(){
     final form = _formKey.currentState;
     if(form.validate()){
