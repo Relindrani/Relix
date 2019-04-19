@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 
+import '../pages/item_page.dart';
+
 import '../models/item.dart';
 import '../models/itemTypes.dart';
 
@@ -25,7 +27,7 @@ class SearchTile extends StatelessWidget{
           Divider()
         ],
       ),
-      onTap: (){},
+      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => ItemPage(_item))),
     );
   }
 }
