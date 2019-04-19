@@ -670,25 +670,25 @@ class AddNewItemPageState extends State<AddNewItemPage>{
             i = new Game(name: _name, category: _cat, picPath: imgPath, desc: _desc, price: _price, purchasedAt: _purchasedAt, platform: _plat, isSteamGame: false, isDigital: _isDigitalGame, caseType: _case, series: _series, complete: _comp);
             break;
           case Categories.CONSOLE:
-            i = new Console(_name, _cat, imgPath, _desc, _price, _purchasedAt, _plat);
+            i = new Console(name: _name, category: _cat, picPath: imgPath, desc: _desc, price: _price, purchasedAt: _purchasedAt, platform: _plat);
             break;
           case Categories.CONSOLE_ACCESSORY:
-            i = new ConsoleAccessory(_name, _cat, imgPath, _desc, _price, _purchasedAt, _plat);
+            i = new ConsoleAccessory(name: _name, category: _cat, picPath: imgPath, desc: _desc, price: _price, purchasedAt: _purchasedAt, platform: _plat);
             break;
           case Categories.BOOK:
-            i = new Book(_name, _cat, imgPath, _desc, _price, _purchasedAt, _book, _series);
+            i = new Book(name: _name, category: _cat, picPath: imgPath, desc: _desc, price: _price, purchasedAt: _purchasedAt, bookType: _book, series: _series);
             break;
           case Categories.FIGURE:
-            i = new Figure(_name, _cat, imgPath, _desc, _price, _purchasedAt, _series);
+            i = new Figure(name: _name, category: _cat, picPath: imgPath, desc: _desc, price: _price, purchasedAt: _purchasedAt, series: _series);
             break;
           case Categories.COLLECTORS_EDITION:
-            i = new CollectorsEdition(_name, _cat, imgPath, _desc, _price, _purchasedAt, _plat);
+            i = new CollectorsEdition(name: _name, category: _cat, picPath: imgPath, desc: _desc, price: _price, purchasedAt: _purchasedAt, platform: _plat);
             break;
           case Categories.CLOTHING:
-            i = new Clothing(_name, _cat, imgPath, _desc, _price, _purchasedAt, _series);
+            i = new Clothing(name: _name, category: _cat, picPath: imgPath, desc: _desc, price: _price, purchasedAt: _purchasedAt, series: _series);
             break;
           case Categories.ACCESSORY:
-            i = new Clothing(_name, _cat, imgPath, _desc, _price, _purchasedAt, _series);
+            i = new Clothing(name: _name, category: _cat, picPath: imgPath, desc: _desc, price: _price, purchasedAt: _purchasedAt, series: _series);
             break;
           default:
             i = new Item(name: _name, category: _cat, picPath: imgPath, desc: _desc, price: _price, purchasedAt: _purchasedAt);

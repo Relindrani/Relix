@@ -27,15 +27,6 @@ class Item{
   double price;
   String purchasedAt;
 
-  /*Item.fromSnapshot(DataSnapshot snapshot) :
-    key = snapshot.key,
-    name = snapshot.value['name'],
-    category = snapshot.value['category'],
-    picPath = snapshot.value['picPath'],
-    desc = snapshot.value['description'],
-    price = snapshot.value['price'],
-    purchasedAt = snapshot.value['purchasedAt'];*/
-
   factory Item.fromJson(Map json){
     return Item(
       name: json['name'], 

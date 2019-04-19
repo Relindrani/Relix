@@ -34,7 +34,7 @@ class DatabaseHandler{
     });
     List<Item> items = <Item>[];
     
-    itemMap.forEach((key, value) {
+    if(itemMap != null) itemMap.forEach((key, value) {
       Item item;
       Item test;
       test = Item.fromJson(value);
@@ -43,7 +43,7 @@ class DatabaseHandler{
           item = new Game();
           item = Game.fromJson(value);
           break;
-        /*case Categories.CONSOLE:
+        case Categories.CONSOLE:
           item = new Console();
           item = value.fromJson();
           break;
@@ -70,7 +70,7 @@ class DatabaseHandler{
         case Categories.ACCESSORY:
           item = new Accessory();
           item = value.fromJson();
-          break;*/
+          break;
         default:
           item = new Item();
           item = Item.fromJson(value);

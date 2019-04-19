@@ -51,15 +51,6 @@ class Game extends Item{
   String series;
   CompleteStatus complete;
 
-  /*Game.fromSnapshot(DataSnapshot snapshot) : 
-    platform = snapshot.value['platform'],
-    isSteamGame = snapshot.value['isSteamGame'],
-    isDigital = snapshot.value['isDigital'],
-    caseType = snapshot.value['caseType'],
-    series = snapshot.value['series'],
-    complete = snapshot.value['complete'],
-    super.fromSnapshot(snapshot);*/
-
   factory Game.fromJson(Map json){
     return Game(
       name: json['name'], 
@@ -98,13 +89,21 @@ class Game extends Item{
 
 class Console extends Item{
   
-  Console(String name, Categories category, String picPath, String desc, double price, String purchasedAt, this.platform) : super(name: name, category: category, picPath: picPath, desc: desc, price: price, purchasedAt: purchasedAt);
+  Console({String name, Categories category, String picPath, String desc, double price, String purchasedAt, this.platform}) : super(name: name, category: category, picPath: picPath, desc: desc, price: price, purchasedAt: purchasedAt);
 
   Platform platform;
 
-  /*Console.fromSnapshot(DataSnapshot snapshot) : 
-    platform = snapshot.value['platform'],
-    super.fromSnapshot(snapshot);*/
+  factory Console.fromJson(Map json){
+    return Console(
+      name: json['name'], 
+      category: getEnumValueFromMap(CategoryEnumMap, json['category']), 
+      picPath: json['picPath'], 
+      desc: json['description'], 
+      price: json['price'], 
+      purchasedAt: json['purchasedAt'],
+      platform: getEnumValueFromMap(PlatformEnumMap, json['platform']),
+    );
+  }
 
   @override
   Map toJson() {
@@ -122,13 +121,21 @@ class Console extends Item{
 
 class ConsoleAccessory extends Item{
   
-  ConsoleAccessory(String name, Categories category, String picPath, String desc, double price, String purchasedAt, this.platform) : super(name: name, category: category, picPath: picPath, desc: desc, price: price, purchasedAt: purchasedAt);
+  ConsoleAccessory({String name, Categories category, String picPath, String desc, double price, String purchasedAt, this.platform}) : super(name: name, category: category, picPath: picPath, desc: desc, price: price, purchasedAt: purchasedAt);
 
   Platform platform;
 
-  /*ConsoleAccessory.fromSnapshot(DataSnapshot snapshot) : 
-    platform = snapshot.value['platform'],
-    super.fromSnapshot(snapshot);*/
+  factory ConsoleAccessory.fromJson(Map json){
+    return ConsoleAccessory(
+      name: json['name'], 
+      category: getEnumValueFromMap(CategoryEnumMap, json['category']), 
+      picPath: json['picPath'], 
+      desc: json['description'], 
+      price: json['price'], 
+      purchasedAt: json['purchasedAt'],
+      platform: getEnumValueFromMap(PlatformEnumMap, json['platform']),
+    );
+  }
 
   @override
   Map toJson() {
@@ -146,15 +153,23 @@ class ConsoleAccessory extends Item{
 
 class Book extends Item{
   
-  Book(String name, Categories category, String picPath, String desc, double price, String purchasedAt, this.bookType, this.series) : super(name: name, category: category, picPath: picPath, desc: desc, price: price, purchasedAt: purchasedAt);
+  Book({String name, Categories category, String picPath, String desc, double price, String purchasedAt, this.bookType, this.series}) : super(name: name, category: category, picPath: picPath, desc: desc, price: price, purchasedAt: purchasedAt);
 
   BookType bookType;
   String series;
 
-  /*Book.fromSnapshot(DataSnapshot snapshot) : 
-    bookType = snapshot.value['bookType'],
-    series = snapshot.value['series'],
-    super.fromSnapshot(snapshot);*/
+  factory Book.fromJson(Map json){
+    return Book(
+      name: json['name'], 
+      category: getEnumValueFromMap(CategoryEnumMap, json['category']), 
+      picPath: json['picPath'], 
+      desc: json['description'], 
+      price: json['price'], 
+      purchasedAt: json['purchasedAt'],
+      bookType: getEnumValueFromMap(BookTypeEnumMap, json['bookType']),
+      series: json['series'],
+    );
+  }
 
   @override
   Map toJson() {
@@ -173,13 +188,21 @@ class Book extends Item{
 
 class Figure extends Item{
  
-  Figure(String name, Categories category, String picPath, String desc, double price, String purchasedAt, this.series) : super(name: name, category: category, picPath: picPath, desc: desc, price: price, purchasedAt: purchasedAt);
+  Figure({String name, Categories category, String picPath, String desc, double price, String purchasedAt, this.series}) : super(name: name, category: category, picPath: picPath, desc: desc, price: price, purchasedAt: purchasedAt);
 
   String series;
 
-  /*Figure.fromSnapshot(DataSnapshot snapshot) : 
-    series = snapshot.value['series'],
-    super.fromSnapshot(snapshot);*/
+  factory Figure.fromJson(Map json){
+    return Figure(
+      name: json['name'], 
+      category: getEnumValueFromMap(CategoryEnumMap, json['category']), 
+      picPath: json['picPath'], 
+      desc: json['description'], 
+      price: json['price'], 
+      purchasedAt: json['purchasedAt'],
+      series: json['series'],
+    );
+  }
 
   @override
   Map toJson() {
@@ -197,15 +220,23 @@ class Figure extends Item{
 
 class CollectorsEdition extends Item{
 
-  CollectorsEdition(String name, Categories category, String picPath, String desc, double price, String purchasedAt, this.platform) : super(name: name, category: category, picPath: picPath, desc: desc, price: price, purchasedAt: purchasedAt);
+  CollectorsEdition({String name, Categories category, String picPath, String desc, double price, String purchasedAt, this.platform, this.series}) : super(name: name, category: category, picPath: picPath, desc: desc, price: price, purchasedAt: purchasedAt);
 
   Platform platform;
   String series;
 
-  /*CollectorsEdition.fromSnapshot(DataSnapshot snapshot) : 
-    platform = snapshot.value['platform'],
-    series = snapshot.value['series'],
-    super.fromSnapshot(snapshot);*/
+  factory CollectorsEdition.fromJson(Map json){
+    return CollectorsEdition(
+      name: json['name'], 
+      category: getEnumValueFromMap(CategoryEnumMap, json['category']), 
+      picPath: json['picPath'], 
+      desc: json['description'], 
+      price: json['price'], 
+      purchasedAt: json['purchasedAt'],
+      platform: getEnumValueFromMap(PlatformEnumMap, json['platform']),
+      series: json['series'],
+    );
+  }
 
   @override
   Map toJson() {
@@ -224,13 +255,21 @@ class CollectorsEdition extends Item{
 
 class Clothing extends Item{
 
-  Clothing(String name, Categories category, String picPath, String desc, double price, String purchasedAt, this.series) : super(name: name, category: category, picPath: picPath, desc: desc, price: price, purchasedAt: purchasedAt);
+  Clothing({String name, Categories category, String picPath, String desc, double price, String purchasedAt, this.series}) : super(name: name, category: category, picPath: picPath, desc: desc, price: price, purchasedAt: purchasedAt);
 
   String series;
 
-  /*Clothing.fromSnapshot(DataSnapshot snapshot) : 
-    series = snapshot.value['series'],
-    super.fromSnapshot(snapshot);*/
+  factory Clothing.fromJson(Map json){
+    return Clothing(
+      name: json['name'], 
+      category: getEnumValueFromMap(CategoryEnumMap, json['category']), 
+      picPath: json['picPath'], 
+      desc: json['description'], 
+      price: json['price'], 
+      purchasedAt: json['purchasedAt'],
+      series: json['series'],
+    );  
+  }
 
   @override
   Map toJson() {
@@ -248,13 +287,21 @@ class Clothing extends Item{
 
 class Accessory extends Item{
 
-  Accessory(String name, Categories category, String picPath, String desc, double price, String purchasedAt, this.series) : super(name: name, category: category, picPath: picPath, desc: desc, price: price, purchasedAt: purchasedAt);
+  Accessory({String name, Categories category, String picPath, String desc, double price, String purchasedAt, this.series}) : super(name: name, category: category, picPath: picPath, desc: desc, price: price, purchasedAt: purchasedAt);
 
   String series;
 
-  /*Accessory.fromSnapshot(DataSnapshot snapshot) : 
-    series = snapshot.value['series'],
-    super.fromSnapshot(snapshot);*/
+  factory Accessory.fromJson(Map json){
+    return Accessory(
+      name: json['name'], 
+      category: getEnumValueFromMap(CategoryEnumMap, json['category']), 
+      picPath: json['picPath'], 
+      desc: json['description'], 
+      price: json['price'], 
+      purchasedAt: json['purchasedAt'],
+      series: json['series'],
+    );
+  }
 
   @override
   Map toJson() {

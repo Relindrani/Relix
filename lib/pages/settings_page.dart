@@ -165,7 +165,7 @@ class SettingsPageState extends State<SettingsPage>{
               } 
             }
           }
-          globals.items.sort();
+          globals.items.sort((a, b) => a.name.compareTo(b.name));
         },
       ),
     );
@@ -268,5 +268,6 @@ class SettingsPageState extends State<SettingsPage>{
 
   void _addNewItemToDatabase(Item i){
     _handler.addDatabaseItem(i);
+    globals.items.add(i);
   }
 }
