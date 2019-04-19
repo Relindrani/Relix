@@ -1,27 +1,56 @@
-class Item{
-  final int appId;
-  final String name;
-  final String logoUrl;
-  final String iconUrl;
+import 'package:firebase_database/firebase_database.dart';
 
-  Item({this.appId, this.name, this.logoUrl, this.iconUrl});
+enum Categories { ALL_ITEM, GAME, CONSOLE, CONSOLE_ACCESSORY, BOOK, FIGURE, COLLECTORS_EDITION, CLOTHING, ACCESSORY, OTHER }
+const CategoryEnumMap = <Categories, dynamic>{
+  Categories.ALL_ITEM: Null,
+  Categories.GAME: "Game",
+  Categories.CONSOLE: "Console",
+  Categories.CONSOLE_ACCESSORY: "Console Accessory",
+  Categories.BOOK: "Book",
+  Categories.FIGURE: "Figure",
+  Categories.COLLECTORS_EDITION: "Collector's Edition",
+  Categories.CLOTHING: "Clothing",
+  Categories.ACCESSORY: "Accessory",
+  Categories.OTHER: "Other Item"
+};
+
+class Item{
+
+  Item({this.name, this.category, this.picPath, this.desc, this.price, this.purchasedAt});
+
+  String key;
+
+  String name;
+  Categories category;
+  String picPath;
+  String desc;
+  double price;
+  String purchasedAt;
 
   factory Item.fromJson(Map json){
     return Item(
-      /*appId : json['response']['games'][0]['appid'],
-      name : json['response']['games'][0]['name'],
-      logoUrl : json['response']['games'][0]['img_logo_url'],
-      iconUrl : json['response']['games'][0]['img_icon_url']*/
-      appId : json['appid'],
-      name : json['name'],
-      logoUrl : json['img_logo_url'],
-      iconUrl : json['img_icon_url']
+      name: json['name'], 
+      category: getEnumValueFromMap(CategoryEnumMap, json['category']), 
+      picPath: json['picPath'], 
+      desc: json['description'], 
+      price: json['price'], 
+      purchasedAt: json['purchasedAt']
     );
   }
 
-  /*Item.fromJson(Map jsonMap) :
-    appId = jsonMap['response']['games'][0]['appid'],
-    name = jsonMap['response']['games'][0]['name'],
-    logoUrl = jsonMap['response']['games'][0]['img_logo_url'],
-    iconUrl = jsonMap['response']['games'][0]['img_icon_url'];*/
+  Map toJson(){
+    return{
+      'name': name,
+      'category': CategoryEnumMap[category],
+      'picPath': picPath,
+      'description': desc,
+      'price': price,
+      'purchasedAt': purchasedAt,
+    };
+  }
+}
+
+T getEnumValueFromMap<T>(Map<T, dynamic> enumValue, dynamic source){
+  if(source == null)return null;
+  return enumValue.entries.singleWhere((entry) => entry.value == source).key;
 }
