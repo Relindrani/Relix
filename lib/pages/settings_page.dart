@@ -122,12 +122,16 @@ class SettingsPageState extends State<SettingsPage>{
           )
         ),
         onPressed: () async{
+          setState(() {
+            _isLoading = true; 
+          });
           if(_formKey.currentState.validate())_formKey.currentState.save();
           if(_items.isEmpty || _items == null){
             await getItems().then((result){
-              _items = result;
-              _steamErrorMessage = 'Successfully added '+_items.length.toString()+' games!';
-              setState(() {});
+              setState(() {
+                _items = result;
+                _steamErrorMessage = 'Successfully added '+_items.length.toString()+' games!';
+              });
             });
           }else{
             int counter, gamesAdded = 0;
@@ -144,8 +148,9 @@ class SettingsPageState extends State<SettingsPage>{
                 }
               }
             });
-            _steamErrorMessage = 'Successfully added '+gamesAdded.toString()+' games!';
-            setState(() {});
+            setState(() {
+              _steamErrorMessage = 'Successfully added '+gamesAdded.toString()+' games!';
+            });
           }
           if(globals.items.isEmpty || globals.items == null){
             for(final i in _items){
@@ -165,6 +170,9 @@ class SettingsPageState extends State<SettingsPage>{
               } 
             }
           }
+          setState(() {
+            _isLoading = false;
+          });
           globals.items.sort((a, b) => a.name.compareTo(b.name));
         },
       ),

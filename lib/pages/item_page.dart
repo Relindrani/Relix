@@ -209,10 +209,10 @@ class ItemPage extends StatelessWidget{
         child: (i.picPath != null && i.picPath != "") ? InkWell(
           child: Container(
             child: SizedBox.expand(
-              child: (i is Game && i.isSteamGame) ? Image.network(i.picPath, fit: BoxFit.fill,) : Image.memory(base64.decode(i.picPath), fit: BoxFit.fill,),
+              child: (i is Game && i.isSteamGame) ? Image.network(i.picPath, fit: BoxFit.fitWidth,) : Image.memory(base64.decode(i.picPath), fit: BoxFit.fitWidth,),
             )   
           ),
-          onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => ImageViewer(i.picPath))),
+          onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => ImageViewer(i.picPath,(i is Game && i.isSteamGame)))),
         ) : Center(
           child: Text("No Image"),
         ),

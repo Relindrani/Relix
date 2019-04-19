@@ -13,11 +13,9 @@ import '../globals.dart' as globals;
 
 class DatabaseHandler{
   final FirebaseDatabase _database  = FirebaseDatabase.instance;
-
-  Query itemQuery;
   
   DatabaseHandler(){
-    itemQuery = _database.reference().child(globals.userId).orderByChild("name").equalTo(globals.userId);
+
   }
 
   void addDatabaseItem(dynamic i){
@@ -89,11 +87,11 @@ const jsonCodec = const JsonCodec(reviver: _reviver);
 _saveData(dynamic item) async{
   var json = jsonCodec.encode(item);
 
-  var url = "https://relix-3f992.firebaseio.com/items.json";
+  var url = "https://relix-3f992.firebaseio.com/" + globals.userId + "/items.json";
   var response = await http.post(url, body: json);
 }
 Future<Map>_loadData() async{
-  var url = "https://relix-3f992.firebaseio.com/items.json";
+  var url = "https://relix-3f992.firebaseio.com/" + globals.userId + "/items.json";
   var response = await http.get(url);
 
   Map items = jsonCodec.decode(response.body);

@@ -712,5 +712,6 @@ class AddNewItemPageState extends State<AddNewItemPage>{
 
   void _addNewItemToDatabase(Item i){
     _handler.addDatabaseItem(i);
+    globals.items.add(i);
   }
 }
