@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_database/firebase_database.dart';
+
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 
 import '../services/authentication.dart';
+import '../services/database_handler.dart';
 
 import '../models/steam_item.dart';
 import '../models/item.dart';
@@ -16,10 +19,9 @@ import '../globals.dart' as globals;
 
 class SettingsPage extends StatefulWidget{
 
-  SettingsPage({Key key, this.auth, this.userId, this.onSignedOut});
+  SettingsPage({Key key, this.auth, this.onSignedOut});
 
   final BaseAuth auth;
-  final String userId;
   final VoidCallback onSignedOut;
 
   @override
@@ -28,6 +30,8 @@ class SettingsPage extends StatefulWidget{
 
 class SettingsPageState extends State<SettingsPage>{
   final _formKey = new GlobalKey<FormState>();
+
+  final DatabaseHandler _handler = new DatabaseHandler();
 
   List<SteamItem> _items = <SteamItem>[];
 
@@ -144,7 +148,10 @@ class SettingsPageState extends State<SettingsPage>{
             setState(() {});
           }
           if(globals.items.isEmpty || globals.items == null){
-            for(final i in _items) globals.items.add(new Game(i.name, Categories.GAME, 'http://media.steampowered.com/steamcommunity/public/images/apps/' + i.appId.toString() + '/' + i.logoUrl + '.jpg', 'desc', 0.0, 'Steam', Platform.PC, true, true, Case.NO_CASE, '', CompleteStatus.NOT_PLAYED));
+            for(final i in _items){
+              Game g = new Game(name: i.name, category: Categories.GAME, picPath: 'http://media.steampowered.com/steamcommunity/public/images/apps/' + i.appId.toString() + '/' + i.logoUrl + '.jpg', desc: 'desc', price: 0.0, purchasedAt: 'Steam', platform: Platform.PC, isSteamGame: true, isDigital: true, caseType: Case.NO_CASE, series: '', complete: CompleteStatus.NOT_PLAYED);
+              _addNewItemToDatabase(g);
+            } 
           }else{
             for(final i in _items){
               int counter = 0;
@@ -152,7 +159,10 @@ class SettingsPageState extends State<SettingsPage>{
                 if(i.name == j.name) break;
                 else counter++;
               }
-              if(counter <= _items.length) globals.items.add(new Game(i.name, Categories.GAME, 'http://media.steampowered.com/steamcommunity/public/images/apps/' + i.appId.toString() + '/' + i.logoUrl + '.jpg', 'desc', 0.0, 'Steam', Platform.PC, true, true, Case.NO_CASE, '', CompleteStatus.NOT_PLAYED));
+              if(counter <= _items.length){
+                Game g = new Game(name: i.name, category: Categories.GAME, picPath: 'http://media.steampowered.com/steamcommunity/public/images/apps/' + i.appId.toString() + '/' + i.logoUrl + '.jpg', desc: 'desc', price: 0.0, purchasedAt: 'Steam', platform: Platform.PC, isSteamGame: true, isDigital: true, caseType: Case.NO_CASE, series: '', complete: CompleteStatus.NOT_PLAYED);
+                _addNewItemToDatabase(g);
+              } 
             }
           }
           globals.items.sort();
@@ -254,5 +264,9 @@ class SettingsPageState extends State<SettingsPage>{
     _items.sort((a, b) => a.name.compareTo(b.name));
 
     return _items;
+  }
+
+  void _addNewItemToDatabase(Item i){
+    _handler.addDatabaseItem(i);
   }
 }

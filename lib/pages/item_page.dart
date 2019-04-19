@@ -369,7 +369,7 @@ class ItemPage extends StatelessWidget{
   }
   Widget _showCompleteStatus(){
     return Expanded(
-      flex: 5,
+      flex: 2,
       child: Column(
         children: <Widget>[
           Expanded(

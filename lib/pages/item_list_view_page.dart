@@ -9,9 +9,11 @@ class ItemListViewPage extends StatelessWidget{
   final Categories _cat;
   int catCount = 0;
   ItemListViewPage(this._cat){
-    for(final i in globals.items){
-      if(i.category == _cat)catCount+=1;
-    }
+    if(_cat != Categories.ALL_ITEM){
+      for(final i in globals.items){
+        if(i.category == _cat)catCount++;
+      }
+    } else catCount = globals.items.length;
   }
 
   int offset = 0;

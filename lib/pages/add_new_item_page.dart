@@ -1,12 +1,17 @@
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 import 'dart:io';
 import 'dart:async';
 import 'dart:convert';
 
+import '../services/database_handler.dart';
+
 import '../models/item.dart';
 import '../models/itemTypes.dart';
+
+import 'landing_page.dart';
 
 import '../globals.dart' as globals;
 
@@ -17,6 +22,8 @@ class AddNewItemPage extends StatefulWidget{
 
 class AddNewItemPageState extends State<AddNewItemPage>{
   final _formKey = new GlobalKey<FormState>();
+
+  final DatabaseHandler _handler = new DatabaseHandler();
 
   File _image;
   bool _isDigitalGame = false;
@@ -660,7 +667,7 @@ class AddNewItemPageState extends State<AddNewItemPage>{
         }
         switch (_cat){
           case Categories.GAME:
-            i = new Game(_name, _cat, imgPath, _desc, _price, _purchasedAt, _plat, false, _isDigitalGame, _case, _series, _comp);
+            i = new Game(name: _name, category: _cat, picPath: imgPath, desc: _desc, price: _price, purchasedAt: _purchasedAt, platform: _plat, isSteamGame: false, isDigital: _isDigitalGame, caseType: _case, series: _series, complete: _comp);
             break;
           case Categories.CONSOLE:
             i = new Console(_name, _cat, imgPath, _desc, _price, _purchasedAt, _plat);
@@ -684,9 +691,9 @@ class AddNewItemPageState extends State<AddNewItemPage>{
             i = new Clothing(_name, _cat, imgPath, _desc, _price, _purchasedAt, _series);
             break;
           default:
-            i = new Item(_name, _cat, imgPath, _desc, _price, _purchasedAt);
+            i = new Item(name: _name, category: _cat, picPath: imgPath, desc: _desc, price: _price, purchasedAt: _purchasedAt);
         }
-        globals.items.add(i);
+        _addNewItemToDatabase(i);
         globals.items.sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
         Navigator.pop(context);
       }catch(e){
@@ -701,5 +708,9 @@ class AddNewItemPageState extends State<AddNewItemPage>{
       return true;
     }
     return false;
+  }
+
+  void _addNewItemToDatabase(Item i){
+    _handler.addDatabaseItem(i);
   }
 }
