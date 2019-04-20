@@ -39,11 +39,14 @@ class LandingPageState extends State<LandingPage> with SingleTickerProviderState
 
   DatabaseHandler _handler = new DatabaseHandler();
 
+  bool _isLoading = false;
+
   TabController controller;
   @override
   void initState(){
     super.initState();
     controller = new TabController(length: 4, vsync: this);
+    _isLoading = true;
     start();
   }
 
@@ -59,15 +62,20 @@ class LandingPageState extends State<LandingPage> with SingleTickerProviderState
         globals.items = result; 
       });
     });
-    
+    _isLoading = false;
   }
 
   @override
   Widget build(BuildContext context){
     return new Scaffold(
-      body: new TabBarView(
-        children: <Widget>[new HomePage(), new CategoryViewPage(), new SearchPage(), new SettingsPage(auth: widget.auth, onSignedOut: widget.onSignedOut,)],
-        controller: controller,
+      body: Stack(
+        children: <Widget>[
+          new TabBarView(
+            children: <Widget>[new HomePage(), new CategoryViewPage(), new SearchPage(), new SettingsPage(auth: widget.auth, onSignedOut: widget.onSignedOut,)],
+            controller: controller,
+          ),
+          _showCircularProgress()
+        ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
@@ -92,5 +100,9 @@ class LandingPageState extends State<LandingPage> with SingleTickerProviderState
         ),
       ),
     );
+  }
+
+  Widget _showCircularProgress(){
+    return _isLoading ? Center(child: CircularProgressIndicator()) : Text("No Items Found");
   }
 }

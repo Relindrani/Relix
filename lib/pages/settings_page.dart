@@ -164,7 +164,7 @@ class SettingsPageState extends State<SettingsPage>{
                 if(i.name == j.name) break;
                 else counter++;
               }
-              if(counter <= _items.length){
+              if(counter >= _items.length){
                 Game g = new Game(name: i.name, category: Categories.GAME, picPath: 'http://media.steampowered.com/steamcommunity/public/images/apps/' + i.appId.toString() + '/' + i.logoUrl + '.jpg', desc: 'desc', price: 0.0, purchasedAt: 'Steam', platform: Platform.PC, isSteamGame: true, isDigital: true, caseType: Case.NO_CASE, series: '', complete: CompleteStatus.NOT_PLAYED);
                 _addNewItemToDatabase(g);
               } 
@@ -277,5 +277,7 @@ class SettingsPageState extends State<SettingsPage>{
   void _addNewItemToDatabase(Item i){
     _handler.addDatabaseItem(i);
     globals.items.add(i);
+    while(globals.recentlyAdded.length >= 10) globals.recentlyAdded.removeFirst();
+    globals.recentlyAdded.add(i);
   }
 }

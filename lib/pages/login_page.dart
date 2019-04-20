@@ -83,7 +83,7 @@ class _LoginPageState extends State<LoginPage>{
             borderRadius: BorderRadius.circular(50.0),
             boxShadow: [new BoxShadow(color: Colors.white, spreadRadius: -40.0, blurRadius: 50.0)]
           ),
-          child: Image.asset('lib/assets/relix_logo_banner2.png')
+          child: Image.asset('lib/assets/relix_logo_banner.png')
         ),
       )
     );

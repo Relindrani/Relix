@@ -713,5 +713,7 @@ class AddNewItemPageState extends State<AddNewItemPage>{
   void _addNewItemToDatabase(Item i){
     _handler.addDatabaseItem(i);
     globals.items.add(i);
+    while(globals.recentlyAdded.length >= 10) globals.recentlyAdded.removeFirst();
+    globals.recentlyAdded.add(i);
   }
 }

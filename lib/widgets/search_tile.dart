@@ -7,6 +7,8 @@ import '../pages/item_page.dart';
 import '../models/item.dart';
 import '../models/itemTypes.dart';
 
+import '../globals.dart' as globals;
+
 class SearchTile extends StatelessWidget{
   final dynamic _item;
   SearchTile(this._item);
@@ -27,7 +29,13 @@ class SearchTile extends StatelessWidget{
           Divider()
         ],
       ),
-      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => ItemPage(_item))),
+      onTap: () => _goToItemPage(context, _item),
     );
+  }
+
+  _goToItemPage(BuildContext context, dynamic _item){
+    while(globals.recentlyViewed.length >= 10) globals.recentlyViewed.removeFirst();
+    globals.recentlyViewed.add(_item);
+    Navigator.push(context, MaterialPageRoute(builder: (context) => ItemPage(_item)));
   }
 }
