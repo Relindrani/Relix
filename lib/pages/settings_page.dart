@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_database/firebase_database.dart';
 
 import 'dart:async';
 import 'dart:convert';
@@ -12,8 +11,6 @@ import '../services/database_handler.dart';
 import '../models/steam_item.dart';
 import '../models/item.dart';
 import '../models/itemTypes.dart';
-
-import 'landing_page.dart';
 
 import '../globals.dart' as globals;
 
@@ -28,6 +25,15 @@ class SettingsPage extends StatefulWidget{
   State<StatefulWidget> createState() => SettingsPageState();
 }
 
+/**
+ * *Settings page of app
+ * *Contains field for inputting steam profile id to import library
+ * TODO: Playstation and XBox import
+ * *Also has buttons for clearing all data, resetting password (NYI), and signing out
+ * TODO: Reset password function
+ * *Form state key for handling form data (steam input) and database handler object for adding items to database
+ * *List of steam items to populate from steam api
+ */
 class SettingsPageState extends State<SettingsPage>{
   final _formKey = new GlobalKey<FormState>();
 
@@ -46,7 +52,6 @@ class SettingsPageState extends State<SettingsPage>{
     _steamErrorMessage = "";
     _steamId = "";
     _isLoading = false;
-    _items = globals.steamGames;
   }
 
   @override
@@ -90,6 +95,7 @@ class SettingsPageState extends State<SettingsPage>{
     return _isLoading ? Center(child: CircularProgressIndicator()) : Container(height: 0.0, width: 0.0);
   }
 
+  //*Input steam profile id to import library
   Widget _showSteamInput(){
     return Padding(
       padding: const EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
@@ -98,7 +104,7 @@ class SettingsPageState extends State<SettingsPage>{
         keyboardType: TextInputType.number,
         autofocus: false,
         decoration: new InputDecoration(
-          hintText: 'Steam Profile Id: 76561198067155644'
+          hintText: 'Steam Profile Id: '
         ),
         validator: (value) => value.isEmpty ? 'Steam Id Field can\'t be empty' : null,
         onSaved: (value) => _steamId = value,
@@ -106,6 +112,7 @@ class SettingsPageState extends State<SettingsPage>{
     );
   }
 
+  //*Button to import
   Widget _showSteamInputButton(){
     return new Padding(
       padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
@@ -121,6 +128,13 @@ class SettingsPageState extends State<SettingsPage>{
             color: Colors.white
           )
         ),
+        ///*On pressed function
+        ///TODO: move to separate function
+        ///*validates and saves form
+        ///*if list is empty, adds entire result into list
+        ///*if list isn't empty, compares results appid with list to only add new games and keeps count of new ones added
+        ///*if global list is empty, adds all the steam items
+        ///*if globals list is not empty, compares name to only add new items
         onPressed: () async{
           setState(() {
             _isLoading = true; 
@@ -179,6 +193,7 @@ class SettingsPageState extends State<SettingsPage>{
     );
   }
 
+  //*Shows steam error message (Not necessarily error)
   Widget _showSteamErrorMessage(){
     if(_steamErrorMessage.length > 0 && _steamErrorMessage != null){
       return new Text(
@@ -194,6 +209,7 @@ class SettingsPageState extends State<SettingsPage>{
     }else return new Container(height: 20.0,);
   }
 
+  //*Sign out button returns user to login screen
   Widget _showSignOutButton(){
     return new Align(
       alignment: FractionalOffset.bottomCenter,
@@ -214,6 +230,10 @@ class SettingsPageState extends State<SettingsPage>{
     );
   }
 
+  /**
+   * *Reset password button
+   * TODO: implement
+   */
   Widget _showResetPasswordButton(){
     return new Align(
       alignment: FractionalOffset.bottomCenter,
@@ -229,11 +249,14 @@ class SettingsPageState extends State<SettingsPage>{
             color: Colors.white
           )
         ),
-        onPressed: () {},
+        onPressed: () {
+          
+        },
       )
     );
   }
 
+  //*Button to clear all data
   Widget _showClearDataButton(){
     return new Align(
       alignment: FractionalOffset.bottomCenter,
@@ -249,11 +272,18 @@ class SettingsPageState extends State<SettingsPage>{
             color: Colors.white
           )
         ),
-        onPressed: () {},
+        onPressed: () => _clearAllData(),
       )
     );
   } 
 
+  /**
+   * *Gets Steam item information from steam api
+   * *if response is successful, decode the body and look for the information for each game
+   * *Populate that information as a list
+   * *As long as that list is not null, map the information to a SteamItem using the fromJson function
+   * *Then sorts the list of items and returns it
+   */
   Future<List<SteamItem>> getItems() async{
     String url = 'http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=8BCD4971534B22531611F207DEA0FD47&steamid=$_steamId&include_appinfo=%27true%27&format=json';
     final response = await http.get(url, headers: {"Accept": "application/json"});
@@ -274,10 +304,46 @@ class SettingsPageState extends State<SettingsPage>{
     return _items;
   }
 
+  /**
+   * *Adds new item to firebase using handler object
+   * *Adds new item to global list
+   * *Checks length of recently added queue and removes first until length is less than 10 then adds new item to the end
+   */
   void _addNewItemToDatabase(Item i){
     _handler.addDatabaseItem(i);
     globals.items.add(i);
     while(globals.recentlyAdded.length >= 10) globals.recentlyAdded.removeFirst();
     globals.recentlyAdded.add(i);
+  }
+
+  //*Shows dialog box to confirm clearing all data in database and variables list
+  void _clearAllData(){
+    showDialog(
+      context: context,
+      builder: (BuildContext context){
+        return AlertDialog(
+          title: new Text("Clear all data"),
+          content: new Text("This will delete your entire collection"),
+          actions: <Widget>[
+            FlatButton(
+              child: new Text("Yes"),
+              onPressed: (){
+                _handler.removeAllDatabaseItems();
+                globals.items.clear();
+                globals.recentlyAdded.clear();
+                globals.recentlyViewed.clear();
+                Navigator.of(context).pop();
+              },
+            ),
+            FlatButton(
+              child: new Text("No"),
+              onPressed: (){
+                Navigator.of(context).pop();
+              },
+            )
+          ],
+        );
+      }
+    );
   }
 }

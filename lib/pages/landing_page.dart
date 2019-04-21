@@ -1,16 +1,6 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'dart:async';
-
-import 'package:http/http.dart' as http;
-
-import 'package:firebase_database/firebase_database.dart';
 
 import '../services/authentication.dart';
-
-import '../models/item.dart';
-import '../models/itemTypes.dart';
 
 import '../pages/home_page.dart';
 import '../pages/category_view_page.dart';
@@ -22,6 +12,7 @@ import '../services/database_handler.dart';
 
 import '../globals.dart' as globals;
 
+//*Landing page of app after login, takes auth info to pass to settings page
 class LandingPage extends StatefulWidget{
   LandingPage({Key key, this.auth, this.userId, this.onSignedOut}){
     globals.userId = userId;
@@ -35,6 +26,12 @@ class LandingPage extends StatefulWidget{
   State<StatefulWidget> createState() => new LandingPageState();
 }
 
+/**
+ * *Landing page for initializing app
+ * *Defines tab bar at bottom for switching pages
+ * *Loads database information on start
+ * *Loads different pages from tab bar using tab controller
+ */
 class LandingPageState extends State<LandingPage> with SingleTickerProviderStateMixin{
 
   DatabaseHandler _handler = new DatabaseHandler();
@@ -103,6 +100,6 @@ class LandingPageState extends State<LandingPage> with SingleTickerProviderState
   }
 
   Widget _showCircularProgress(){
-    return _isLoading ? Center(child: CircularProgressIndicator()) : Text("No Items Found");
+    return _isLoading ? Center(child: CircularProgressIndicator()) : Container();
   }
 }

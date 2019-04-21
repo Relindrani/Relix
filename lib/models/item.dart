@@ -1,8 +1,7 @@
-import 'package:firebase_database/firebase_database.dart';
-
+// *Enum for possible categories and a map to convert them to strings
 enum Categories { ALL_ITEM, GAME, CONSOLE, CONSOLE_ACCESSORY, BOOK, FIGURE, COLLECTORS_EDITION, CLOTHING, ACCESSORY, OTHER }
 const CategoryEnumMap = <Categories, dynamic>{
-  Categories.ALL_ITEM: Null,
+  Categories.ALL_ITEM: "All Item",
   Categories.GAME: "Game",
   Categories.CONSOLE: "Console",
   Categories.CONSOLE_ACCESSORY: "Console Accessory",
@@ -14,8 +13,8 @@ const CategoryEnumMap = <Categories, dynamic>{
   Categories.OTHER: "Other Item"
 };
 
+// *Base item class. contains definition of what every basic item is
 class Item{
-
   Item({this.name, this.category, this.picPath, this.desc, this.price, this.purchasedAt});
 
   String key;
@@ -27,6 +26,7 @@ class Item{
   double price;
   String purchasedAt;
 
+  //*Get Item object from json response
   factory Item.fromJson(Map json){
     return Item(
       name: json['name'], 
@@ -38,6 +38,7 @@ class Item{
     );
   }
 
+  //*Convert Item object to json
   Map toJson(){
     return{
       'name': name,
@@ -49,8 +50,8 @@ class Item{
     };
   }
 }
-
+//*Returns corresponding enum value from string
 T getEnumValueFromMap<T>(Map<T, dynamic> enumValue, dynamic source){
-  if(source == null)return null;
+  if(source == null) return null;
   return enumValue.entries.singleWhere((entry) => entry.value == source).key;
 }

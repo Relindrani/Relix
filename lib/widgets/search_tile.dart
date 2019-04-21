@@ -9,6 +9,9 @@ import '../models/itemTypes.dart';
 
 import '../globals.dart' as globals;
 
+/**
+ * *Widget that shows long item tile for display on search page
+ */
 class SearchTile extends StatelessWidget{
   final dynamic _item;
   SearchTile(this._item);

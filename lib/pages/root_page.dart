@@ -16,6 +16,7 @@ class RootPage extends StatefulWidget{
 
 enum AuthStatus{ NOT_DETERMINED, NOT_LOGGED_IN, LOGGED_IN }
 
+//*Root page that checks authentication status then displays login page or landing page
 class _RootPageState extends State<RootPage>{
   AuthStatus authStatus = AuthStatus.NOT_DETERMINED;
   String _userId = "";

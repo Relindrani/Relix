@@ -1,8 +1,8 @@
 import 'dart:collection';
-import 'models/steam_item.dart';
 import 'models/item.dart';
 
-List<SteamItem> steamGames = <SteamItem>[];
+//*Global variable declarations, data that needs to persist through entire lifecycle of app
+
 List<Item> items = <Item>[];
 
 Queue<Item> recentlyAdded = new Queue();

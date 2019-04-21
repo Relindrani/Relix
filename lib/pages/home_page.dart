@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import '../widgets/item_tile.dart';
 
-import '../models/item.dart';
-import '../models/itemTypes.dart';
-
 import '../globals.dart' as globals;
 
 class HomePage extends StatefulWidget{
@@ -12,6 +9,13 @@ class HomePage extends StatefulWidget{
   State<StatefulWidget> createState() => HomePageState();
 }
 
+/**
+ * *Home page after logging into app
+ * *Displays 3 horizontally scrolling lists
+ * *First checks if there are any items in the collection, if not displays text stating so
+ * *Then displays 3 rows, one for recently viewed, one for recently added, and once for all items (to be changed later)
+ * TODO: Change third row to something else
+ */
 class HomePageState extends State<HomePage>{
 
   @override
@@ -22,11 +26,6 @@ class HomePageState extends State<HomePage>{
         title: Text("Home Page"),
       ),
       body: Center(
-        /*child: (globals.items != null && globals.items.isNotEmpty) ? new GridView.builder(
-          gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
-          itemCount: globals.items.length,
-          itemBuilder: (context, index) => ItemTile(globals.items[index]),
-        ) : Container(child: Text("No Items Found"),),*/
         child: (globals.items != null && globals.items.isNotEmpty) ? Container(
           padding: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
           child: Column(

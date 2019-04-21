@@ -1,7 +1,6 @@
-import 'package:firebase_database/firebase_database.dart';
-
 import 'item.dart';
 
+//*Enums and maps for possible platforms, case types, complettion status, and book types for different items
 enum Platform { PC, PS4, PS3, PS2, PS1, XBOX_ONE, XBOX_360, XBOX, SWITCH, WII_U, WII, GAMECUBE, OTHER}
 enum Case { NO_CASE, REGULAR_CASE, STEELBOOK }
 enum CompleteStatus { NOT_PLAYED, STARTED, FINISHED, COMPLETED }
@@ -41,7 +40,6 @@ const BookTypeEnumMap = <BookType, dynamic>{
 };
 
 class Game extends Item{
-  
   Game({String name, Categories category, String picPath, String desc, double price, String purchasedAt, this.platform, this.isSteamGame, this.isDigital, this.caseType, this.series, this.complete}) : super(name: name, category: category, picPath: picPath, desc: desc, price: price, purchasedAt: purchasedAt);
 
   Platform platform;
@@ -88,7 +86,6 @@ class Game extends Item{
 }
 
 class Console extends Item{
-  
   Console({String name, Categories category, String picPath, String desc, double price, String purchasedAt, this.platform}) : super(name: name, category: category, picPath: picPath, desc: desc, price: price, purchasedAt: purchasedAt);
 
   Platform platform;
@@ -120,7 +117,6 @@ class Console extends Item{
 }
 
 class ConsoleAccessory extends Item{
-  
   ConsoleAccessory({String name, Categories category, String picPath, String desc, double price, String purchasedAt, this.platform}) : super(name: name, category: category, picPath: picPath, desc: desc, price: price, purchasedAt: purchasedAt);
 
   Platform platform;
@@ -152,7 +148,6 @@ class ConsoleAccessory extends Item{
 }
 
 class Book extends Item{
-  
   Book({String name, Categories category, String picPath, String desc, double price, String purchasedAt, this.bookType, this.series}) : super(name: name, category: category, picPath: picPath, desc: desc, price: price, purchasedAt: purchasedAt);
 
   BookType bookType;
@@ -187,7 +182,6 @@ class Book extends Item{
 }
 
 class Figure extends Item{
- 
   Figure({String name, Categories category, String picPath, String desc, double price, String purchasedAt, this.series}) : super(name: name, category: category, picPath: picPath, desc: desc, price: price, purchasedAt: purchasedAt);
 
   String series;
@@ -219,7 +213,6 @@ class Figure extends Item{
 }
 
 class CollectorsEdition extends Item{
-
   CollectorsEdition({String name, Categories category, String picPath, String desc, double price, String purchasedAt, this.platform, this.series}) : super(name: name, category: category, picPath: picPath, desc: desc, price: price, purchasedAt: purchasedAt);
 
   Platform platform;
@@ -254,7 +247,6 @@ class CollectorsEdition extends Item{
 }
 
 class Clothing extends Item{
-
   Clothing({String name, Categories category, String picPath, String desc, double price, String purchasedAt, this.series}) : super(name: name, category: category, picPath: picPath, desc: desc, price: price, purchasedAt: purchasedAt);
 
   String series;
@@ -286,7 +278,6 @@ class Clothing extends Item{
 }
 
 class Accessory extends Item{
-
   Accessory({String name, Categories category, String picPath, String desc, double price, String purchasedAt, this.series}) : super(name: name, category: category, picPath: picPath, desc: desc, price: price, purchasedAt: purchasedAt);
 
   String series;

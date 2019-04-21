@@ -12,6 +12,12 @@ class SearchPage extends StatefulWidget{
   State<StatefulWidget> createState() => SearchPageState();
 }
 
+/**
+ * *Search page for searching for items in collection
+ * *Currently only searches by name
+ * TODO: Add advanced search functions, filter by category and select other search critera (desc, platform, digital, etc.)
+ * *Has form key and list of items that fit search criterea
+ */
 class SearchPageState extends State<SearchPage>{
   final _formKey = new GlobalKey<FormState>();
 
@@ -53,6 +59,7 @@ class SearchPageState extends State<SearchPage>{
     );
   }
 
+  //*Shows Text field for inputting search criterea
   Widget _showSearchBar(){
     return Expanded(
       flex: 4,
@@ -70,6 +77,7 @@ class SearchPageState extends State<SearchPage>{
     );
   }
 
+  //*Search button for running search
   Widget _showSearchbutton(){
     return Expanded(
       flex: 1,
@@ -84,6 +92,7 @@ class SearchPageState extends State<SearchPage>{
     );
   }
 
+  //*Saves input from search bar then checks if any items in global list contains text
   void _searchForItem(){
     _formKey.currentState.save();
     List<Item> tempList = <Item>[];

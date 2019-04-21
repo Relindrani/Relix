@@ -1,6 +1,4 @@
-import 'itemTypes.dart';
-import 'item.dart';
-
+//*Steam item class. independant object class for getting and handling data from steam api
 class SteamItem{
   final int appId;
   final String name;
@@ -9,6 +7,7 @@ class SteamItem{
 
   SteamItem({this.appId, this.name, this.logoUrl, this.iconUrl});
 
+  //*Get SteamItem object from json response
   factory SteamItem.fromJson(Map json){
     return SteamItem(
       appId : json['appid'],

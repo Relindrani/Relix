@@ -13,6 +13,7 @@ abstract class BaseAuth{
   Future<void> signOut();
 }
 
+//*Auth class to call firebase functions for account authentication purposes
 class Auth implements BaseAuth{
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 

@@ -9,6 +9,10 @@ import '../pages/item_page.dart';
 
 import '../globals.dart' as globals;
 
+/**
+ * *Widget that displays item information on a tile
+ * *Has picture, name and category shown
+ */
 class ItemTile extends StatelessWidget{
   final dynamic _item;
   ItemTile(this._item);
@@ -39,7 +43,7 @@ class ItemTile extends StatelessWidget{
                     bottom: 5.0,
                     left: 5.0,
                     right: 5.0,
-                    child: Text(formatText(_item.category.toString()), textAlign: TextAlign.center,)
+                    child: Text(CategoryEnumMap[_item.category], textAlign: TextAlign.center,)
                   )
                 ],
               ),
@@ -49,12 +53,6 @@ class ItemTile extends StatelessWidget{
         onTap: () => _goToItemPage(context, _item),
       ),
     );
-  }
-
-  String formatText(String s){
-    s = s.substring(s.indexOf('.') + 1, s.indexOf('.') + 2).toUpperCase() + s.substring(s.indexOf('.') + 2).toLowerCase();
-    if(s.contains('_'))s = s.substring(0, s.indexOf('_')) + ' ' + s.substring(s.indexOf('_') + 1, s.indexOf('_') + 2).toUpperCase() + s.substring(s.indexOf('_') + 2).toLowerCase();
-    return s;
   }
 
   _goToItemPage(BuildContext context, dynamic _item){
