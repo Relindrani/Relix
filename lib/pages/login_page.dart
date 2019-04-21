@@ -14,6 +14,11 @@ class LoginPage extends StatefulWidget{
 
 enum FormMode { LOGIN, SIGNUP }
 
+/**
+ * *Login page to create and authenticate accounts
+ * *Has enum for if the form is to signup or login
+ * *form state key to validate and save information
+ */
 class _LoginPageState extends State<LoginPage>{
   final _formKey = new GlobalKey<FormState>();
 
@@ -35,7 +40,7 @@ class _LoginPageState extends State<LoginPage>{
   @override
   Widget build(BuildContext context){
     return new Scaffold(
-      backgroundColor: Colors.blueGrey,
+      backgroundColor: Color.fromARGB(150, 56, 4, 84),
       body: Material(
         color: Colors.transparent,
         child: new Stack(
@@ -68,36 +73,41 @@ class _LoginPageState extends State<LoginPage>{
     );
   }
 
+  //*Shows loading indicator if waiting
   Widget _showCircularProgress(){
     return _isLoading ? Center(child: CircularProgressIndicator()) : Container(height: 0.0, width: 0.0);
   }
 
+  //*Shows logo
   Widget _showLogo(){
     return new Hero(
       tag: "hero",
       child: Padding(
         padding: EdgeInsets.fromLTRB(0.0, 70.0, 0.0, 0.0),
         child: Container(
-          height: 150.0,
-          decoration: new BoxDecoration(
-            borderRadius: BorderRadius.circular(50.0),
-            boxShadow: [new BoxShadow(color: Colors.white, spreadRadius: -40.0, blurRadius: 50.0)]
-          ),
-          child: Image.asset('lib/assets/relix_logo_banner2.png')
+          height: 200.0,
+          child: Image.asset('lib/assets/relix_logo_banner.png')
         ),
       )
     );
   }
 
+  //*Show text field for email input, validates that it isn't empty
   Widget _showEmailInput(){
     return Padding(
       padding: const EdgeInsets.fromLTRB(0.0, 100.0, 0.0, 0.0),
       child: new TextFormField(
+        style: TextStyle(
+          color: Colors.white,
+        ),
         maxLines: 1,
         keyboardType: TextInputType.emailAddress,
         autofocus: false,
         decoration: new InputDecoration(
           hintText: 'Email',
+          hintStyle: TextStyle(
+            color: Colors.white
+          ),
           icon: new Icon(
             Icons.mail,
             color: Colors.grey
@@ -109,26 +119,34 @@ class _LoginPageState extends State<LoginPage>{
     );
   }
 
+  //*Show text field for password input, hides text, validates that it isn't empty
   Widget _showPasswordInput(){
     return Padding(
       padding: const EdgeInsets.fromLTRB(0.0, 15.0, 0.0, 0.0),
       child: new TextFormField(
+        style: TextStyle(
+          color: Colors.white
+        ),
         maxLines: 1,
         obscureText: true,
         autofocus: false,
         decoration: new InputDecoration(
           hintText: 'Password',
+          hintStyle: TextStyle(
+            color: Colors.white
+          ),
           icon: new Icon(
             Icons.lock,
             color: Colors.grey
           )
         ),
-        validator: (value) => value.isEmpty ? 'Email cannot be empty' : null,
+        validator: (value) => value.isEmpty ? 'Password cannot be empty' : null,
         onSaved: (value) => _password = value,
       ),
     );
   }
 
+  //*Primary button submits information in form
   Widget _showPrimaryButton(){
     return new Padding(
       padding: EdgeInsets.fromLTRB(0.0, 45.0, 0.0, 0.0),
@@ -155,17 +173,20 @@ class _LoginPageState extends State<LoginPage>{
     );
   }
 
+  //*Secondary button switches form between login and signup
   Widget _showSecondaryButton(){
     return new FlatButton(
       child: _formMode == FormMode.LOGIN ? new Text(
         "Create an account",
         style: new TextStyle(
+          color: Colors.white,
           fontSize: 18.0,
           fontWeight: FontWeight.w300
         ),
       ) : new Text(
         "Have an account? Sign in.",
         style: new TextStyle(
+          color: Colors.white,
           fontSize: 18.0,
           fontWeight: FontWeight.w300
         ),
@@ -174,6 +195,7 @@ class _LoginPageState extends State<LoginPage>{
     );
   }
 
+  //*Displays any error message
   Widget _showErrorMessage(){
     if(_errorMessage.length > 0 && _errorMessage != null){
       return new Text(
@@ -190,7 +212,7 @@ class _LoginPageState extends State<LoginPage>{
       return new Container(height: 0.0);
     }
   }
-
+  //*Changes form to signup form
   void _changeFormToSignup(){
     _formKey.currentState.reset();
     _errorMessage = "";
@@ -198,6 +220,7 @@ class _LoginPageState extends State<LoginPage>{
       _formMode = FormMode.SIGNUP; 
     });
   }
+  //*Changes form to login form
   void _changeFormToLogin(){
     _formKey.currentState.reset();
     _errorMessage = "";
@@ -206,6 +229,11 @@ class _LoginPageState extends State<LoginPage>{
     });
   }
 
+  /**
+   * *checks for form is validates then either signs in or signs user up with information
+   * *If signing in, checks that it was successful then continues to landing page (called from root page)
+   * *If signing up, sends email verification and goes to login form
+   */
   void _validateAndSubmit() async{
     setState(() {
       _errorMessage = "";
@@ -236,6 +264,7 @@ class _LoginPageState extends State<LoginPage>{
       }
     }
   }
+  //*Validates and saves form information
   bool _validateAndSave(){
     final form = _formKey.currentState;
     if(form.validate()){
@@ -245,6 +274,7 @@ class _LoginPageState extends State<LoginPage>{
     return false;
   }
 
+  //*Shows dialog box that email verification was sent
   void _showVerifyEmailSentDialog(){
     showDialog(
       context: context,

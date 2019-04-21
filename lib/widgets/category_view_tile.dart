@@ -7,6 +7,10 @@ import '../globals.dart' as globals;
 
 import '../pages/item_list_view_page.dart';
 
+/**
+ * *Widget that displays tile for a category
+ * *Has title and preview of items that are within that category
+ */
 class CategoryViewTile extends StatelessWidget{
   final Categories _cat;
   CategoryViewTile(this._cat);
@@ -31,7 +35,7 @@ class CategoryViewTile extends StatelessWidget{
               child: Container(
                 alignment: Alignment.center,
                 child: Text(
-                  formatTextPlural(_cat.toString()),
+                  formatTextPlural(CategoryEnumMap[_cat]),
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Colors.white,
@@ -72,6 +76,7 @@ class CategoryViewTile extends StatelessWidget{
     );
   }
 
+  //*Retuns list of items that are within specified catergory
   List<Item> getCategoryItems(Categories cat){
     List<Item> i = <Item>[];
     for(final item in globals.items){
@@ -83,8 +88,7 @@ class CategoryViewTile extends StatelessWidget{
   }
 
   String formatTextPlural(String s){
-    s = s.substring(s.indexOf('.') + 1, s.indexOf('.') + 2).toUpperCase() + s.substring(s.indexOf('.') + 2).toLowerCase() + 's';
-    if(s.contains('_'))s = s.substring(0, s.indexOf('_')) + ' ' + s.substring(s.indexOf('_') + 1, s.indexOf('_') + 2).toUpperCase() + s.substring(s.indexOf('_') + 2).toLowerCase();
+    s = s + 's';
     if(s.contains('ys'))s = s.replaceAll('ys', 'ies');
     if(s.contains('ings'))s = s.replaceAll('ings', 'ing');
     return s;

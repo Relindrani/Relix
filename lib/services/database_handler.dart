@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 import 'dart:async';
 
 import 'package:http/http.dart' as http;
@@ -11,20 +10,33 @@ import '../models/itemTypes.dart';
 
 import '../globals.dart' as globals;
 
+/**
+ * *Database handler class
+ * *Singleton instance
+ */
 class DatabaseHandler{
   final FirebaseDatabase _database  = FirebaseDatabase.instance;
   
-  DatabaseHandler(){
+  DatabaseHandler();
 
-  }
-
+  //*takes dynamic object and saves the data to database
   void addDatabaseItem(dynamic i){
     if(i != null) _saveData(i);
   }
 
+  /**
+   * *Removes item from database
+   * TODO: implement
+   */
   void removeDatabaseItem(){
-
+    
   }
+  //*Removes all items from database
+  void removeAllDatabaseItems(){
+    _database.reference().child(globals.userId).remove();
+  }
+
+  //*Loads database into list of items, called on init of landing page
   Future<List<Item>> loadDataBase()async{
     Map itemMap;
     await _loadData().then((result){
@@ -84,12 +96,14 @@ class DatabaseHandler{
 
 const jsonCodec = const JsonCodec(reviver: _reviver);
 
+//*encodes item data using toJson functions and posts it to database url in json format
 _saveData(dynamic item) async{
   var json = jsonCodec.encode(item);
 
   var url = "https://relix-3f992.firebaseio.com/" + globals.userId + "/items.json";
   var response = await http.post(url, body: json);
 }
+//*retrieves and decodes data returning map object that can be read using fromJson functions to get item object
 Future<Map>_loadData() async{
   var url = "https://relix-3f992.firebaseio.com/" + globals.userId + "/items.json";
   var response = await http.get(url);

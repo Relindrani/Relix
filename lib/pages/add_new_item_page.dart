@@ -1,6 +1,5 @@
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_database/firebase_database.dart';
 
 import 'dart:io';
 import 'dart:async';
@@ -11,8 +10,6 @@ import '../services/database_handler.dart';
 import '../models/item.dart';
 import '../models/itemTypes.dart';
 
-import 'landing_page.dart';
-
 import '../globals.dart' as globals;
 
 class AddNewItemPage extends StatefulWidget{
@@ -20,10 +17,16 @@ class AddNewItemPage extends StatefulWidget{
   State<StatefulWidget> createState() => AddNewItemPageState();
 }
 
+/**
+ * *Page for adding new item to collection
+ * *Form state key for handling form information
+ * *Database handler object for adding items to firebase
+ * *image file and other information that defines items
+ */
 class AddNewItemPageState extends State<AddNewItemPage>{
-  final _formKey = new GlobalKey<FormState>();
+  final _formKey = new GlobalKey<FormState>(); 
 
-  final DatabaseHandler _handler = new DatabaseHandler();
+  final DatabaseHandler _handler = new DatabaseHandler(); 
 
   File _image;
   bool _isDigitalGame = false;
@@ -50,6 +53,7 @@ class AddNewItemPageState extends State<AddNewItemPage>{
     );
   }
 
+  //*Displays different body structures depending on item type
   Widget _showBody(){
     switch (_cat){
       case Categories.GAME:
@@ -81,6 +85,7 @@ class AddNewItemPageState extends State<AddNewItemPage>{
     }
   }
 
+  //*Default body for 'Other' items with basic information
   Widget _showDefaultBody(){
     return new Container(
       padding: EdgeInsets.all(20.0),
@@ -106,6 +111,7 @@ class AddNewItemPageState extends State<AddNewItemPage>{
       ),
     );
   }
+  //*Body for 'Game' items
   Widget _showGameBody(){
     return new Container(
       padding: EdgeInsets.all(20.0),
@@ -138,6 +144,7 @@ class AddNewItemPageState extends State<AddNewItemPage>{
       ),
     );
   }
+  //*Body for 'Console' items
   Widget _showConsoleBody(){
     return new Container(
       padding: EdgeInsets.all(20.0),
@@ -164,6 +171,7 @@ class AddNewItemPageState extends State<AddNewItemPage>{
       ),
     );
   }
+  //*Body for 'Console Accessory' items
   Widget _showConsoleAccessoryBody(){
     return new Container(
       padding: EdgeInsets.all(20.0),
@@ -190,6 +198,7 @@ class AddNewItemPageState extends State<AddNewItemPage>{
       ),
     );
   }
+  //*Body for 'Book' items
   Widget _showBookBody(){
     return new Container(
       padding: EdgeInsets.all(20.0),
@@ -217,6 +226,7 @@ class AddNewItemPageState extends State<AddNewItemPage>{
       ),
     );
   }
+  //*Body for 'Figure' items
   Widget _showFigureBody(){
     return new Container(
       padding: EdgeInsets.all(20.0),
@@ -243,6 +253,7 @@ class AddNewItemPageState extends State<AddNewItemPage>{
       ),
     );
   }
+  //*Body for 'Collectors Edition' items
   Widget _showCollectorsEditionBody(){
     return new Container(
       padding: EdgeInsets.all(20.0),
@@ -270,6 +281,7 @@ class AddNewItemPageState extends State<AddNewItemPage>{
       ),
     );
   }
+  //*Body for 'Clothing' items
   Widget _showClothingBody(){
     return new Container(
       padding: EdgeInsets.all(20.0),
@@ -296,6 +308,7 @@ class AddNewItemPageState extends State<AddNewItemPage>{
       ),
     );
   }
+  //*Body for 'Accessory' items
   Widget _showAccessoryBody(){
     return new Container(
       padding: EdgeInsets.all(20.0),
@@ -323,6 +336,7 @@ class AddNewItemPageState extends State<AddNewItemPage>{
     );
   }
 
+  //*Submit button for adding defined item to collection
   Widget _showSubmitButton(){
     return Expanded(
       flex: 2,
@@ -342,6 +356,10 @@ class AddNewItemPageState extends State<AddNewItemPage>{
     ); 
   }
 
+  /**
+   * *Shows box for image
+   * *Tap to take or change image
+   */
   Widget _showImage(){
     return Expanded(
       flex: 9,
@@ -361,6 +379,7 @@ class AddNewItemPageState extends State<AddNewItemPage>{
     );
   }
 
+  //*Shows text field for item name, validates to make sure it is not empty
   Widget _showNameField(){
     return Expanded(
       flex: 3,
@@ -378,6 +397,7 @@ class AddNewItemPageState extends State<AddNewItemPage>{
       )
     );
   }
+  //*Drop down for category selection
   Widget _showCategoryDropDown(){
     return Expanded(
       flex: 3,
@@ -400,6 +420,7 @@ class AddNewItemPageState extends State<AddNewItemPage>{
       ),
     );
   }
+  //*Shows multi line text field for description of item
   Widget _showDescriptionField(){
     return Expanded(
       flex: 6,
@@ -416,6 +437,7 @@ class AddNewItemPageState extends State<AddNewItemPage>{
       )
     );
   }
+  //*Shows number field for inputting the price of the item
   Widget _showPriceField(){
     return Expanded(
       flex: 1,
@@ -433,6 +455,7 @@ class AddNewItemPageState extends State<AddNewItemPage>{
       ),
     );
   }
+  //*Shows text field for where the item was purchased
   Widget _showPurchasedAtField(){
     return Expanded(
       flex: 2,
@@ -450,6 +473,7 @@ class AddNewItemPageState extends State<AddNewItemPage>{
     );
   }
 
+  //*Shows dropdown for selecting platform
   Widget _showPlatformDropDown(){
     return Expanded(
       flex: 3,
@@ -472,6 +496,7 @@ class AddNewItemPageState extends State<AddNewItemPage>{
       )
     );
   }
+  //*Shows a check box for whether the game is digital or not
   Widget _showDigitalGameCheck(){
     return Expanded(
       flex: 1,
@@ -489,6 +514,7 @@ class AddNewItemPageState extends State<AddNewItemPage>{
       ),
     );
   }
+  //*Shows dropdown for the status of the case, only active if physical game
   Widget _showCaseStatusDropDown(){
     return Expanded(
       flex: 1,
@@ -511,6 +537,7 @@ class AddNewItemPageState extends State<AddNewItemPage>{
       )
     );
   }
+  //*Shows text field for what series the game is from
   Widget _showSeriesField(){
     return Expanded(
       flex: 3,
@@ -527,6 +554,7 @@ class AddNewItemPageState extends State<AddNewItemPage>{
       )
     );
   }
+  //*Shows drop down for selecting completion progress in a game
   Widget _showCompleteStatusDropDown(){
     return Expanded(
       flex: 3,
@@ -549,7 +577,8 @@ class AddNewItemPageState extends State<AddNewItemPage>{
       )
     );
   }
-
+  
+  //*Shows drop down for selecting type of book
   Widget _showBookTypeDropDown(){
     return Expanded(
       flex: 3,
@@ -572,12 +601,14 @@ class AddNewItemPageState extends State<AddNewItemPage>{
       )
     );
   }
+  //*Shows an empty container with variable size for filling space in layout
   Widget _showEmptyContainer(int exp){
     return Expanded(
       flex: exp,
       child: Container(),
     );
   }
+  //*Shows a trailing container with fixed size to be placed at the bottom to move submit button to be above floating action button from landing page
   Widget _showTrailingContainer(){
     return Expanded(
       flex: 1,
@@ -585,6 +616,7 @@ class AddNewItemPageState extends State<AddNewItemPage>{
     );
   }
 
+  //*Future function to get image from camera when tapping image box
   Future getImage() async{
     var image = await ImagePicker.pickImage(source: ImageSource.camera);
 
@@ -593,68 +625,69 @@ class AddNewItemPageState extends State<AddNewItemPage>{
     });
   }
 
-  String formatCategoriesText(String s){
-    s = s.substring(s.indexOf('.') + 1, s.indexOf('.') + 2).toUpperCase() + s.substring(s.indexOf('.') + 2).toLowerCase();
-    if(s.contains('_'))s = s.substring(0, s.indexOf('_')) + ' ' + s.substring(s.indexOf('_') + 1, s.indexOf('_') + 2).toUpperCase() + s.substring(s.indexOf('_') + 2).toLowerCase();
-    return s;
-  }
-  String formatPlatformText(String s){
-    s = s.substring(s.indexOf('.')+1);
-    if(s.contains('_'))s = s.substring(0, s.indexOf('_')) + ' ' + s.substring(s.indexOf('_') + 1);
-    return s;
-  }
-
+  //*Creates list of dropdown menu items from the CategoryEnumMap
   List<DropdownMenuItem<Categories>> getCategoriesList(){
     List<DropdownMenuItem<Categories>> cats = <DropdownMenuItem<Categories>>[];
     for(int i = 1; i < Categories.values.length; i++){
       cats.add(new DropdownMenuItem(
         value: Categories.values[i],
-        child: new Text(formatCategoriesText(Categories.values[i].toString()), textAlign: TextAlign.center,),
+        child: new Text(CategoryEnumMap[Categories.values[i]], textAlign: TextAlign.center,),
       ));
     }
     return cats;
   }
+  //*Creates list of dropdown menu items from the PlatformEnumMap
   List<DropdownMenuItem<Platform>> getPlatformList(){
     List<DropdownMenuItem<Platform>> plats = <DropdownMenuItem<Platform>>[];
     for(final p in Platform.values){
       plats.add(new DropdownMenuItem(
         value: p,
-        child: new Text(formatPlatformText(p.toString())),
+        child: new Text(PlatformEnumMap[p]),
       ));
     }
     return plats;
   }
+  //*Creates list of dropdown menu items from the CaseEnumMap
   List<DropdownMenuItem<Case>> getCaseList(){
     List<DropdownMenuItem<Case>> cases = <DropdownMenuItem<Case>>[];
     for(final c in Case.values){
       cases.add(new DropdownMenuItem(
         value: c,
-        child: new Text(formatCategoriesText(c.toString())),
+        child: new Text(CaseEnumMap[c]),
       ));
     }
     return cases;
   }
+  //*Creates list of dropdown menu items from the CompleteStatusEnumMap
   List<DropdownMenuItem<CompleteStatus>> getCompleteList(){
     List<DropdownMenuItem<CompleteStatus>> comps = <DropdownMenuItem<CompleteStatus>>[];
     for(final c in CompleteStatus.values){
       comps.add(new DropdownMenuItem(
         value: c,
-        child: new Text(formatCategoriesText(c.toString())),
+        child: new Text(CompleteStatusEnumMap[c]),
       ));
     }
     return comps; 
   }
+  //*Creates list of dropdown menu items from the BookTyoeEnumMap
   List<DropdownMenuItem<BookType>> getBookList(){
     List<DropdownMenuItem<BookType>> books = <DropdownMenuItem<BookType>>[];
     for(final b in BookType.values){
       books.add(new DropdownMenuItem(
         value: b,
-        child: new Text(formatCategoriesText(b.toString())),
+        child: new Text(BookTypeEnumMap[b]),
       ));
     }
     return books;
   }
 
+  /**
+   * *Function of submit button
+   * *Validates that there is a name (minimum data for an item)
+   * *If there is an image, it encodes the file as a base64 string to be stored in a smaller size than a file object
+   * *If validated it then checks the selected category and creates an appropriate item object
+   * *Then adds that item to the collection, sorts the list, and pops the current page to return to the previous one
+   */
   void _validateAndSubmit() async{
     if(_validateAndSave()){
       try{
@@ -701,6 +734,7 @@ class AddNewItemPageState extends State<AddNewItemPage>{
       }
     }
   }
+  //*Validates and saves form information using _formkey
   bool _validateAndSave(){
     final form = _formKey.currentState;
     if(form.validate()){
@@ -710,8 +744,16 @@ class AddNewItemPageState extends State<AddNewItemPage>{
     return false;
   }
 
+  /**
+   * *Adds new item to collection
+   * *Uses database handler object to add it to firebase
+   * *Adds item to globals list
+   * *Checks the length of the recently added queue and removes until less than 10 items, then adds item to the end
+   */
   void _addNewItemToDatabase(Item i){
     _handler.addDatabaseItem(i);
     globals.items.add(i);
+    while(globals.recentlyAdded.length >= 10) globals.recentlyAdded.removeFirst();
+    globals.recentlyAdded.add(i);
   }
 }

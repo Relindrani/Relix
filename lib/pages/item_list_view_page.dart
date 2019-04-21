@@ -5,6 +5,12 @@ import '../models/item.dart';
 
 import '../globals.dart' as globals;
 
+/**
+ * *Page to display grid list of all items within category
+ * *Constructor compares the category passed with global item list to see how many items are within that category
+ * *Creates gridview builder with length of number of items in category
+ * *Keeps track of offset so it doesn't grab the first item in list every time it loops
+ */
 class ItemListViewPage extends StatelessWidget{
   final Categories _cat;
   int catCount = 0;
@@ -23,7 +29,7 @@ class ItemListViewPage extends StatelessWidget{
     return new Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text(formatTextPlural(_cat.toString())),
+        title: Text(formatTextPlural(CategoryEnumMap[_cat])),
       ),
       body: Center(
         child: (globals.items != null && globals.items.isNotEmpty) ? new GridView.builder(
@@ -43,9 +49,9 @@ class ItemListViewPage extends StatelessWidget{
     );
   }
 
+  //*Returns plural form of CategoryEnumMap string for each category
   String formatTextPlural(String s){
-    s = s.substring(s.indexOf('.') + 1, s.indexOf('.') + 2).toUpperCase() + s.substring(s.indexOf('.') + 2).toLowerCase() + 's';
-    if(s.contains('_'))s = s.substring(0, s.indexOf('_')) + ' ' + s.substring(s.indexOf('_') + 1, s.indexOf('_') + 2).toUpperCase() + s.substring(s.indexOf('_') + 2).toLowerCase();
+    s = s + 's';
     if(s.contains('ys'))s = s.replaceAll('ys', 'ies');
     if(s.contains('ings'))s = s.replaceAll('ings', 'ing');
     return s;

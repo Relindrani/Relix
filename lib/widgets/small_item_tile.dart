@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 import 'dart:convert';
 
-import '../models/item.dart';
 import '../models/itemTypes.dart';
 
+//*Widget to display a smaller item tile with picture and name in category tile preview
 class SmallItemTile extends StatelessWidget{
   final dynamic _item;
   SmallItemTile(this._item);
@@ -35,11 +35,5 @@ class SmallItemTile extends StatelessWidget{
           ],
         ),
     );
-  }
-
-  String formatText(String s){
-    s = s.substring(s.indexOf('.') + 1, s.indexOf('.') + 2).toUpperCase() + s.substring(s.indexOf('.') + 2).toLowerCase();
-    if(s.contains('_'))s = s.substring(0, s.indexOf('_')) + ' ' + s.substring(s.indexOf('_') + 1, s.indexOf('_') + 2).toUpperCase() + s.substring(s.indexOf('_') + 2).toLowerCase();
-    return s;
   }
 }

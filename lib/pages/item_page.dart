@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:percent_indicator/linear_percent_indicator.dart';
-
 import 'dart:convert';
 
 import '../models/item.dart';
@@ -9,6 +7,9 @@ import '../models/itemTypes.dart';
 
 import 'image_viewer.dart';
 
+/**
+ * *Page for displays all information about an item
+ */
 class ItemPage extends StatelessWidget{
 
   final dynamic i;
@@ -27,6 +28,7 @@ class ItemPage extends StatelessWidget{
     );
   }
 
+  //*displays different body structure depending on type of item
   Widget _showBody(BuildContext context){
     switch(i.category){
       case Categories.GAME:
@@ -58,6 +60,7 @@ class ItemPage extends StatelessWidget{
     }
   }
 
+  //*Default body for 'Other' items
   Widget _showDefaultBody(BuildContext context){
     return Container(
       padding: EdgeInsets.all(20.0),
@@ -73,6 +76,7 @@ class ItemPage extends StatelessWidget{
       ),
     );
   }
+  //*Body for 'Game' items
   Widget _showGameBody(BuildContext context){
     return Container(
       padding: EdgeInsets.all(20.0),
@@ -90,6 +94,7 @@ class ItemPage extends StatelessWidget{
       ),
     );
   }
+  //*Body for 'Console' items
   Widget _showConsoleBody(BuildContext context){
     return Container(
       padding: EdgeInsets.all(20.0),
@@ -105,6 +110,7 @@ class ItemPage extends StatelessWidget{
       ),
     );
   }
+  //*Body for 'Console Accessory' items
   Widget _showConsoleAccessoryBody(BuildContext context){
     return Container(
       padding: EdgeInsets.all(20.0),
@@ -120,6 +126,7 @@ class ItemPage extends StatelessWidget{
       ),
     );
   }
+  //*Body for 'Book' items
   Widget _showBookBody(BuildContext context){
     return Container(
       padding: EdgeInsets.all(20.0),
@@ -136,6 +143,7 @@ class ItemPage extends StatelessWidget{
       ),
     );
   }
+  //*Body for 'Figure' items
   Widget _showFigureBody(BuildContext context){
     return Container(
       padding: EdgeInsets.all(20.0),
@@ -152,6 +160,7 @@ class ItemPage extends StatelessWidget{
       ),
     );
   }
+  //*Body for 'Collectors Edition' items
   Widget _showCollectorsEditionBody(BuildContext context){
     return Container(
       padding: EdgeInsets.all(20.0),
@@ -168,6 +177,7 @@ class ItemPage extends StatelessWidget{
       ),
     );
   }
+  //*Body for 'Clothing' items
   Widget _showClothingBody(BuildContext context){
     return Container(
       padding: EdgeInsets.all(20.0),
@@ -184,6 +194,7 @@ class ItemPage extends StatelessWidget{
       ),
     );
   }
+  //*Body for 'Accessory' items
   Widget _showAccessoryBody(BuildContext context){
     return Container(
       padding: EdgeInsets.all(20.0),
@@ -201,6 +212,11 @@ class ItemPage extends StatelessWidget{
     );
   }
 
+  /**
+   * *Displays container with image
+   * *Tap to view larger
+   * *Checks if steam game and either gets image from network or memory from picPath
+   */
   Widget _showImage(BuildContext context){
     return Expanded(
       flex: 9,
@@ -220,6 +236,7 @@ class ItemPage extends StatelessWidget{
     );
   }
 
+  //*Shows row of tags consisting of different Enum values each item has
   Widget _showTags(){
     switch (i.category){
       case Categories.GAME:
@@ -280,10 +297,11 @@ class ItemPage extends StatelessWidget{
         );
     }
   }
+  //*Gets string values for enums from EnumMaps
   Widget _showCategory(){
     return Container(
       child: Text(
-        'Category:\n' + formatCategoriesText(i.category.toString()), 
+        'Category:\n' + CategoryEnumMap[i.category], 
         textAlign: TextAlign.center, 
       ),
     );
@@ -291,7 +309,7 @@ class ItemPage extends StatelessWidget{
   Widget _showPlatform(){
     return Container(
       child: Text(
-        'Platform:\n' + formatPlatformText(i.platform.toString()),
+        'Platform:\n' + PlatformEnumMap[i.platform],
         textAlign: TextAlign.center,
       ),
     );
@@ -299,7 +317,7 @@ class ItemPage extends StatelessWidget{
   Widget _showCaseType(){
     return Container(
       child: Text(
-        'Case:\n' + formatCategoriesText(i.caseType.toString()),
+        'Case:\n' + CaseEnumMap[i.caseType],
         textAlign: TextAlign.center,
       ),
     );
@@ -307,7 +325,7 @@ class ItemPage extends StatelessWidget{
   Widget _showBookType(){
     return Container(
       child: Text(
-        'Book Type:\n' + formatCategoriesText(i.bookType.toString()),
+        'Book Type:\n' + BookTypeEnumMap[i.bookType],
         textAlign: TextAlign.center,
       ),
     );
@@ -321,6 +339,7 @@ class ItemPage extends StatelessWidget{
     );
   }
 
+  //*Text to display description
   Widget _showDescription(){
     return Expanded(
       flex: 3,
@@ -338,6 +357,7 @@ class ItemPage extends StatelessWidget{
       )
     );
   }
+  //*Displays purchase information about item (price and purchased At)
   Widget _showPurchaseInformation(){
     return Expanded(
       flex: 3,
@@ -361,12 +381,15 @@ class ItemPage extends StatelessWidget{
       child: Text('Purchased From: ' + i.purchasedAt),
     );
   }
+
+  //*Shows series that item is from
   Widget _showSeries(){
     return Expanded(
       flex: 2,
       child: Text('Series: ' + i.series),
     );
   }
+  //*Shows the completion status of game
   Widget _showCompleteStatus(){
     return Expanded(
       flex: 2,
@@ -374,7 +397,7 @@ class ItemPage extends StatelessWidget{
         children: <Widget>[
           Expanded(
             flex: 1,
-            child: Text(formatCategoriesText(i.complete.toString())),
+            child: Text(CompleteStatusEnumMap[i.complete]),
           ),
           Padding(padding: EdgeInsets.all(5.0),),
           Expanded(
@@ -385,6 +408,7 @@ class ItemPage extends StatelessWidget{
       ),
     );
   }
+  //*Fills a progress bar with different amounts and colors depending on how finished the game is
   Widget _showCompleteBar(){
     switch (i.complete){
       case CompleteStatus.STARTED:
@@ -409,21 +433,11 @@ class ItemPage extends StatelessWidget{
     }
   }
 
+  //*Empty container for formatting
   Widget _showEmptyContainer(int exp){
     return Expanded(
       flex: exp,
       child: Container(),
     );
-  }
-
-   String formatCategoriesText(String s){
-    s = s.substring(s.indexOf('.') + 1, s.indexOf('.') + 2).toUpperCase() + s.substring(s.indexOf('.') + 2).toLowerCase();
-    if(s.contains('_'))s = s.substring(0, s.indexOf('_')) + ' ' + s.substring(s.indexOf('_') + 1, s.indexOf('_') + 2).toUpperCase() + s.substring(s.indexOf('_') + 2).toLowerCase();
-    return s;
-  }
-  String formatPlatformText(String s){
-    s = s.substring(s.indexOf('.')+1);
-    if(s.contains('_'))s = s.substring(0, s.indexOf('_')) + ' ' + s.substring(s.indexOf('_') + 1);
-    return s;
   }
 }
